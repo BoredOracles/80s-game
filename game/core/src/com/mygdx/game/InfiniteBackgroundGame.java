@@ -11,8 +11,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.objects.characters.Player;
+import com.mygdx.game.util.SpriteSheet;
 
 public class InfiniteBackgroundGame implements ApplicationListener {
     private OrthographicCamera camera;
@@ -23,6 +25,8 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private float secondBgY;
     private float currentBgY;
     private long lastTimeBg;
+
+    private static float stateTime;
 
     private Player player;
 
@@ -40,9 +44,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         backImage = new Texture("background.jpg");
 
-        Texture playerTexture = new Texture("Orc1.png");
-        Sprite playerSprite = new Sprite(playerTexture);
-        player = new Player(playerSprite, 100, 100);
+        Texture playerSheet = new Texture("OrcSpritesheet.png");
+        SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.5f);
+        player = new Player(sheet, 100, 100);
         player.moveTo(200, 200);
         Music music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));
         music.setLooping(true);
@@ -60,6 +64,8 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     public void render() {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stateTime += Gdx.graphics.getDeltaTime();
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
@@ -92,5 +98,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
     @Override
     public void resume() {
+    }
+
+    public static float getStateTime(){
+        return stateTime;
     }
 }

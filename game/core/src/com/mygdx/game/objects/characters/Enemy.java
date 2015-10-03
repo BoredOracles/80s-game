@@ -1,7 +1,7 @@
 package com.mygdx.game.objects.characters;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.objects.weapons.Weapon;
+import com.mygdx.game.util.SpriteSheet;
 
 /**
  * Created by paul on 03/10/15.
@@ -9,8 +9,8 @@ import com.mygdx.game.objects.weapons.Weapon;
 public abstract class Enemy extends Character {
     int collisionDamage;
 
-    public Enemy(Sprite sprite, Weapon weapon, float width, float height) {
-        super(sprite, weapon, width, height);
+    public Enemy(SpriteSheet spriteSheet, Weapon weapon, float width, float height) {
+        super(spriteSheet, weapon, width, height);
     }
 
 

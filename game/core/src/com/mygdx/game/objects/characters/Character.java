@@ -5,25 +5,28 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
 import com.mygdx.game.objects.weapons.Weapon;
+import com.mygdx.game.util.SpriteSheet;
 
 /**
  * Created by paul on 03/10/15.
  */
 public abstract class Character extends Collidable {
-    int health;
-    Weapon weapon;
+    private int health;
+    private Weapon weapon;
     public float width;
     public float height;
+    public SpriteSheet spriteSheet;
 
-    public Character(Sprite sprite, Weapon weapon, float width, float height){
-        super(sprite);
+    public Character(SpriteSheet spriteSheet, Weapon weapon, float width, float height) {
+        super(spriteSheet);
+        this.spriteSheet = spriteSheet;
         this.weapon = weapon;
         this.width = width;
         this.height = height;
     }
 
-    public Character(Sprite sprite, float width, float height){
-        this(sprite, null, width, height);
+    public Character(SpriteSheet spriteSheet, float width, float height){
+        this(spriteSheet, null, width, height);
     }
 
     public void move(float x, float y){
@@ -36,8 +39,12 @@ public abstract class Character extends Collidable {
         this.y = y;
     }
 
+    private boolean hasWeapon(){
+        return weapon != null;
+    }
+
     public void attack(){
-        if(weapon != null) weapon.attack();
+        if(hasWeapon()) weapon.attack();
     }
 
     public int getHealth(){
@@ -57,6 +64,6 @@ public abstract class Character extends Collidable {
     }
 
     public void draw(SpriteBatch batch){
-        batch.draw(getSprite(), x, y, width, height);
+        batch.draw(spriteSheet.getCurrentFrame(), x, y, width, height);
     }
 }

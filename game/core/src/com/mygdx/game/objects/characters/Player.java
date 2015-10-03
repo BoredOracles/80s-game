@@ -1,7 +1,7 @@
 package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.util.SpriteSheet;
 
 /**
  * Created by paul on 03/10/15.
@@ -11,8 +11,8 @@ public class Player extends com.mygdx.game.objects.characters.Character {
 
     int numPlutonium;
 
-    public Player(Sprite sprite, float width, float height) {
-        super(sprite, width, height);
+    public Player(SpriteSheet spriteSheet, float width, float height) {
+        super(spriteSheet, width, height);
         this.numPlutonium = 0;
     }
 
