@@ -7,7 +7,7 @@ import com.mygdx.game.objects.characters.Player;
 /**
  * Created by paul on 03/10/15.
  */
-public abstract class Projectile extends Collidable {
+public class Projectile extends Collidable implements Weapon{
     int damage;
 
     public Projectile(Sprite sprite, int damage) {
@@ -20,4 +20,8 @@ public abstract class Projectile extends Collidable {
         player.decHealth(damage);
     }
 
+    @Override
+    public void attack() {
+        //TODO:Implement attack
+    }
 }
