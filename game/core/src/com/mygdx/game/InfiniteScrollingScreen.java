@@ -196,7 +196,7 @@ public class InfiniteScrollingScreen implements Screen {
 
 
 
-        ArrayList<Integer> toSpawn = new ArrayList<Integer>();
+        ArrayList<Integer> toSpawn = new ArrayList<>();
         for (Object o : newEnemies){
             if ( System.currentTimeMillis() - newEnemyTimer > spawnTimes.get(newEnemies.indexOf(o)) ){
                 toSpawn.add(newEnemies.indexOf(o));
@@ -239,9 +239,6 @@ public class InfiniteScrollingScreen implements Screen {
             if (proj.getY() < -200) toDestroy.add(projectiles.indexOf(proj));
 
         }
-
-
-
 
         count = 0;
         Collections.sort(toDestroy);
@@ -343,7 +340,9 @@ public class InfiniteScrollingScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        batch.dispose();
+        background.dispose();
+        stage.dispose();
     }
 
     public static float getStateTime(){
