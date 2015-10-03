@@ -228,6 +228,8 @@ public class InfiniteScrollingScreen implements Screen {
 
             if(proj.collidingWith(player)) {
                 proj.onCollide(player);
+                toDestroy.add(projectiles.indexOf(proj));
+                break;
             }
 
             for(Enemy robot: enemies){
