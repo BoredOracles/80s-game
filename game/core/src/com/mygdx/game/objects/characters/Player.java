@@ -52,7 +52,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     public Projectile fireArrow(){
         Texture playerSheet = new Texture("Arrow.png");
         Sprite sheet = new Sprite(playerSheet);
-        return new Projectile(sheet, 1, 1000, 32, 32);
+        return new Projectile(sheet, 1, 1000, 32, 96);
     }
 
 }
