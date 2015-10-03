@@ -27,6 +27,7 @@ import com.mygdx.game.objects.characters.Enemy;
 import com.mygdx.game.objects.characters.LaserRobot;
 import com.mygdx.game.objects.characters.Player;
 import com.mygdx.game.objects.characters.SwordRobot;
+import com.mygdx.game.objects.pickups.Pickup;
 import com.mygdx.game.objects.pickups.Plutonium;
 import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
@@ -72,6 +73,8 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private ArrayList<Enemy> enemies;
     
     private ArrayList<Enemy> alreadyCollided;
+    
+    private ArrayList<Pickup> pickUps;
     
     @Override
     public void create() {
@@ -251,7 +254,15 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                     if (proj.getHeight() != carSize) {
                     toDestroy.add(projectiles.indexOf(proj)); } //actually terrible hack
                     player.incScore(3);
-                    player.incHealth(1);
+                    if (random.nextInt(4)==0){//chance of regaining HP 
+                    	player.incHealth(1); 
+                    	//TODO play sound}
+                    }
+                    if (random.nextInt(4)==0){               	//drop plutonium
+                    	Plutonium drop = spawnPlutonium();
+                    	drop.moveTo(robot.getX(), robot.getY());
+                    	pickUps.add(drop);               
+                    }
                 }
             }
 
