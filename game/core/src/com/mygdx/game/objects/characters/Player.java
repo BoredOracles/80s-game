@@ -1,6 +1,7 @@
 package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.objects.weapons.Projectile;
@@ -15,6 +16,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     private int score;
     public int speed;
     private Texture[] healthBars;
+    Sound arrowSound = Gdx.audio.newSound(Gdx.files.internal("sound/Arrow.mp3"));
     
 
     public Player(SpriteSheet spriteSheet, int health, float width, float height) {
@@ -50,6 +52,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     }
 
     public Projectile fireArrow(){
+        arrowSound.play();
         Texture playerSheet = new Texture("Arrow.png");
         Sprite sheet = new Sprite(playerSheet);
         return new Projectile(sheet, 1, 1000, 32, 96);
