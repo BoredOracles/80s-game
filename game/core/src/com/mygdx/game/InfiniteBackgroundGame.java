@@ -71,12 +71,14 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private ArrayList<Projectile> projectiles;
     private ArrayList<Enemy> enemies;
     
+    private ArrayList<Enemy> alreadyCollided;
+    
     @Override
     public void create() {
         screenWidth = 1200;
         screenHeight = 1000;
         playerSize = 100;
-        carSize = 200;
+        carSize = 64*3;
         
         font = new BitmapFont();
         
@@ -109,15 +111,16 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         projectiles = new ArrayList<Projectile>();
         enemies = new ArrayList<Enemy>();
+        
+        alreadyCollided = new ArrayList<Enemy>();
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
         Texture robotText = new Texture("EyeRobotSpritesheet.png");
         SpriteSheet robotSheet = new SpriteSheet(robotText, 1, 2, 0.3f);
-        enemies.add(new LaserRobot(robotSheet, 1, playerSize, playerSize));
-        enemies.get(0).moveTo(350, 900);
 
+        
         Texture playerSheet = new Texture("OrcSpritesheet.png");
         SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
         player = new Player(sheet, 3, playerSize, playerSize);
@@ -161,7 +164,11 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         music.setLooping(true);
         music.play();
         
+        
         /*
+        enemies.add(new LaserRobot(robotSheet, 1, playerSize, playerSize));
+        enemies.get(0).moveTo(350, 900);
+		
         car = spawnCar();
         SwordRobot robot = spawnSwordRobot();
         stage.addActor(robot);
@@ -215,7 +222,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         	if (newEnemies.get(index) instanceof Projectile){
         		projectiles.add((Projectile)newEnemies.get(index));
         	} else { enemies.add((Enemy)newEnemies.get(index)); }
-        	newEnemies.get(index).moveTo(spawnX.get(index),screenHeight-playerSize);
+        	newEnemies.get(index).moveTo(spawnX.get(index),screenHeight);
         }
         count = 0;
         Collections.sort(toSpawn);
@@ -234,14 +241,17 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
             if(proj.collidingWith(player)) {
                 proj.onCollide(player);
+                toDestroy.add(projectiles.indexOf(proj));
             }
 
             for(Enemy robot: enemies){
                 if(proj.collidingWithRobot(robot)){
                     robot.decHealth(1);
                     toDestroyRobot.add(enemies.indexOf(robot));
-                    toDestroy.add(projectiles.indexOf(proj));
+                    if (proj.getHeight() != carSize) {
+                    toDestroy.add(projectiles.indexOf(proj)); } //actually terrible hack
                     player.incScore(3);
+                    player.incHealth(1);
                 }
             }
 
@@ -249,6 +259,15 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         }
         
+        for (Enemy robot : enemies){
+        	if (robot.collidingWith(player) && !alreadyCollided.contains(robot)){
+        		robot.onCollide(player);
+        		alreadyCollided.add(robot);
+        	}
+        	if (robot.getY() < -200){
+        		toDestroyRobot.add(enemies.indexOf(robot));
+        	}
+        }
 
         
 
@@ -262,6 +281,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         count = 0;
         Collections.sort(toDestroyRobot);
         for (Integer i : toDestroyRobot){
+        	if (alreadyCollided.contains(enemies.get(i))) {
+        		alreadyCollided.remove(enemies.get(i));
+        	}
             enemies.remove(i.intValue()-count);
             count++;
         }
@@ -275,13 +297,16 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                 }
             }
             if(player.getX() < enemy.getX()){
-            	enemy.setX(enemy.getX() - Gdx.graphics.getDeltaTime() * 20);
+            	enemy.setX(enemy.getX() - Gdx.graphics.getDeltaTime() * 80);
             }
             else if(player.getX() > enemy.getX()){
-                enemy.setX((enemy).getX() + Gdx.graphics.getDeltaTime() * 20);
+                enemy.setX((enemy).getX() + Gdx.graphics.getDeltaTime() * 80);
             }
             if(enemy instanceof SwordRobot){
-            	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -30);
+            	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -300);
+            }
+            else if(enemy instanceof LaserRobot){
+            	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -100);
             }
         }
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
@@ -348,7 +373,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private Projectile spawnCar(){
     	Texture carTexture = new Texture("Delorean.png");
     	Sprite carSprite = new Sprite(carTexture);
-    	Projectile car = new Projectile(carSprite, 3, -100, carSize, carSize);
+    	Projectile car = new Projectile(carSprite, 3, -600, (int)(carSize*.625), carSize);
     	return car;
     }
     
@@ -370,6 +395,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     	Texture lRobotSheet = new Texture("EyeRobotSpritesheet.png");
     	SpriteSheet lRobotSprite = new SpriteSheet(lRobotSheet, 1, 2, 0.3f);
     	LaserRobot laserRobot = new LaserRobot(lRobotSprite, 1, playerSize, playerSize);
+
     	return laserRobot;
     }
 }

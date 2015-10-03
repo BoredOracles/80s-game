@@ -21,10 +21,15 @@ public class LaserRobot extends Enemy {
     Sound lazerShot = Gdx.audio.newSound(Gdx.files.internal("sound/GunEffect.mp3"));
     public LaserRobot(SpriteSheet spriteSheet, int health, float width, float height){
         super(spriteSheet, health, width, height);
+        sinceLastLaser = TimeUtils.millis()+3000;
     }
 
     public long getSinceLastLaser(){
         return sinceLastLaser;
+    }
+    
+    public void setSinceLastLaser(){
+    	this.sinceLastLaser = TimeUtils.millis();
     }
 
     public Projectile fireLaser(){
