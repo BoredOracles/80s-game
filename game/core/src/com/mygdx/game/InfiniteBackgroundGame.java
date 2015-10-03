@@ -169,7 +169,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         	player.move(-player.dx, 0);
         }
 
-        for(enemy:)
+        for(Enemy enemy: enemies){
+            enemy.draw(batch);
+        }
 
         player.draw(batch);
         
@@ -188,6 +190,8 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                 if(proj.collidingWithRobot(robot)){
                     robot.decHealth(1);
                     toDestroyRobot.add(enemies.indexOf(robot));
+                    toDestroy.add(projectiles.indexOf(proj));
+                    player.incScore(3);
                 }
             }
 
@@ -200,7 +204,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         }
 
         for (Integer i : toDestroyRobot){
-            projectiles.remove(i.intValue());
+            enemies.remove(i.intValue());
         }
         
         
