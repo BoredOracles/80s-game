@@ -4,7 +4,10 @@ package com.mygdx.game;
  * Created by richy734 on 03/10/15.
  */
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
+import com.mygdx.game.objects.Collidable;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -58,6 +61,13 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private SwordRobot swordRobot;
     private LaserRobot laserRobot;
     
+    private ArrayList<Collidable> newEnemies;
+    private long newEnemyTimer;    
+    private ArrayList<Double> spawnTimes;
+    private ArrayList<Integer> spawnX;
+    private int count;
+    private Random random;
+    
     private ArrayList<Projectile> projectiles;
     private ArrayList<Enemy> enemies;
     
@@ -73,6 +83,15 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         font.getData().setScale(4f,4f);
         
         font.setColor(Color.GREEN);
+        
+        newEnemies = new ArrayList<Collidable>();
+        newEnemyTimer = 0;
+        
+        random = new java.util.Random();
+        
+        spawnTimes = new ArrayList<Double>();
+        spawnX = new ArrayList<Integer>();
+        count = 0;
         
         camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
@@ -142,13 +161,14 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         music.setLooping(true);
         music.play();
         
+        /*
         car = spawnCar();
         SwordRobot robot = spawnSwordRobot();
         stage.addActor(robot);
         enemies.add(robot);
         stage.addActor(car);
         projectiles.add(car);
-    	car.moveTo(500, 400);
+    	car.moveTo(500, 400); */
     }
 
     @Override
@@ -171,7 +191,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         batch.draw(background, 0, currentBgY, screenWidth, screenHeight);
         batch.draw(backImage, 0, secondBgY - screenHeight, screenWidth, screenHeight);
         batch.draw(backImage, 0, secondBgY, screenWidth, screenHeight);
-        batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight- 80, 272, 80);
+       
         player.move(player.dx, 0);
         if (player.getX() <= 0 || player.getX() >= screenWidth-playerSize){
         	player.move(-player.dx, 0);
@@ -183,7 +203,29 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         player.draw(batch);
         
-        font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
+
+        
+        ArrayList<Integer> toSpawn = new ArrayList<Integer>();
+        for (Object o : newEnemies){
+        	if ( System.currentTimeMillis() - newEnemyTimer > spawnTimes.get(newEnemies.indexOf(o)) ){
+        		toSpawn.add(newEnemies.indexOf(o));
+        	}
+        }
+        for (Integer index : toSpawn){
+        	if (newEnemies.get(index) instanceof Projectile){
+        		projectiles.add((Projectile)newEnemies.get(index));
+        	} else { enemies.add((Enemy)newEnemies.get(index)); }
+        	newEnemies.get(index).moveTo(spawnX.get(index),screenHeight-playerSize);
+        }
+        count = 0;
+        Collections.sort(toSpawn);
+        for (Integer index : toSpawn){
+        	newEnemies.remove(index-count);
+        	spawnX.remove(index-count);
+        	spawnTimes.remove(index-count);
+        	count++;
+        }
+        
 
         ArrayList<Integer> toDestroy = new ArrayList<Integer>();
         ArrayList<Integer> toDestroyRobot = new ArrayList<Integer>();
@@ -203,16 +245,25 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                 }
             }
 
-        	if (proj.getY() < -100) toDestroy.add(projectiles.indexOf(proj));
+        	if (proj.getY() < -200) toDestroy.add(projectiles.indexOf(proj));
 
         }
+        
 
+        
+
+        count = 0;
+        Collections.sort(toDestroy);
         for (Integer i : toDestroy){
-        	projectiles.remove(i.intValue());
+        	projectiles.remove(i.intValue()-count);
+        	count++;
         }
 
+        count = 0;
+        Collections.sort(toDestroyRobot);
         for (Integer i : toDestroyRobot){
-            enemies.remove(i.intValue());
+            enemies.remove(i.intValue()-count);
+            count++;
         }
 
         for (Enemy enemy: enemies){
@@ -233,8 +284,8 @@ public class InfiniteBackgroundGame implements ApplicationListener {
             	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -30);
             }
         }
-        
-        
+        font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
+        batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight- 80, 272, 80);
         batch.end();
 
         if(TimeUtils.nanoTime() - lastTimeBg > 50000000){
@@ -247,6 +298,34 @@ public class InfiniteBackgroundGame implements ApplicationListener {
             currentBgY = screenHeight;
             secondBgY = 0;
             player.incScore(5);
+            
+            //enemy generation for next tesselation
+            
+            newEnemies = new ArrayList<Collidable>();
+            int total = 0;
+            while (total < player.getScore()){
+            	int value = random.nextInt(3);
+            	if (value==0){
+            		newEnemies.add(spawnSwordRobot());
+            		total += 5;
+            	} else if (value==1){
+            		newEnemies.add(spawnLaserRobot());
+            		total += 10;
+            	} else if (value==2){
+            		newEnemies.add(spawnCar());
+            		total += 7;
+            	}
+            	total *= newEnemies.size();
+            }
+            spawnTimes = new ArrayList<Double>();
+            spawnX = new ArrayList<Integer>();
+            for (Object o : newEnemies){
+            	spawnTimes.add(random.nextDouble()*4000);
+            	if (o instanceof Projectile){
+            		spawnX.add(random.nextInt(5)*(screenWidth/4));
+            	} else {spawnX.add(random.nextInt(screenWidth-playerSize));}
+            
+            newEnemyTimer = System.currentTimeMillis(); }
         }
     }
 

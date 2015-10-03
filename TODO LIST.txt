@@ -1,18 +1,13 @@
 Todo list:
 
-allow arrow firing
-hp gauge in front of others
 start screen
 game over screen - high scores
 sfx volumes
+lazers dont destroy robots
+delorans dont destroy robots
+destroy lazers on collision
 
-add enemies
--cars
--swords
--eyes
-add ai
 increase score+life per kill
-enemy generation algorithm
 animation
 
 sound effects on:
