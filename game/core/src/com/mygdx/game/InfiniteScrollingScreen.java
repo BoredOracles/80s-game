@@ -175,6 +175,7 @@ public class InfiniteScrollingScreen implements Screen {
 
         music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));
         music.setLooping(true);
+        music.setVolume(.6f);
         music.play();
 
     }
@@ -216,7 +217,7 @@ public class InfiniteScrollingScreen implements Screen {
             if (newEnemies.get(index) instanceof Projectile){
                 projectiles.add((Projectile)newEnemies.get(index));
             } else { enemies.add((Enemy)newEnemies.get(index)); }
-            newEnemies.get(index).moveTo(spawnX.get(index),screenHeight-playerSize);
+            newEnemies.get(index).moveTo(spawnX.get(index),screenHeight);
         }
         count = 0;
         Collections.sort(toSpawn);
@@ -411,5 +412,6 @@ public class InfiniteScrollingScreen implements Screen {
 
     public void onPlayerDeath(){
         game.setScreen(game.endScreen);
+        
     }
 }
