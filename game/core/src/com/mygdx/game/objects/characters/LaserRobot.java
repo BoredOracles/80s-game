@@ -2,6 +2,9 @@ package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
 
 /**
@@ -9,11 +12,19 @@ import com.mygdx.game.util.SpriteSheet;
  */
 public class LaserRobot extends Enemy {
 
-    private static Texture laser = new Texture("Laser.png");
-    private static Sprite sprite = new Sprite(laser);
+
+    private static Texture laserText = new Texture("Laser.png");
+    private static Sprite laserSprite = new Sprite(laserText);
+    private static Projectile laser;
 
     public LaserRobot(SpriteSheet spriteSheet, float width, float height){
         super(spriteSheet, width, height);
+    }
+
+    public Projectile fireLaser(){
+        Texture playerSheet = new Texture("Laser.png");
+        Sprite sheet = new Sprite(playerSheet);
+        return new Projectile(sheet, 1, -1000, 32, 32);
     }
 
 }

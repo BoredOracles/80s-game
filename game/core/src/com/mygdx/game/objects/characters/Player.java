@@ -2,6 +2,8 @@ package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
 
 /**
@@ -43,6 +45,12 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     
     public Texture getHealthbar(){
     	return healthBars[this.getHealth()]; //breaks if given <0 or >3
+    }
+
+    public Projectile fireArrow(){
+        Texture playerSheet = new Texture("Arrow.png");
+        Sprite sheet = new Sprite(playerSheet);
+        return new Projectile(sheet, 1, 1000, 32, 32);
     }
 
 }

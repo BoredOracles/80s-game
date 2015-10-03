@@ -1,8 +1,11 @@
 package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
+import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
 
 /**
@@ -39,4 +42,6 @@ public abstract class Character extends Collidable {
     public void draw(SpriteBatch batch){
         batch.draw(spriteSheet.getCurrentFrame(), getX(), getY(), getWidth(), getHeight());
     }
+
+
 }
