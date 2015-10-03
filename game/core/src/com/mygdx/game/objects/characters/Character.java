@@ -19,12 +19,21 @@ public abstract class Character extends Collidable {
         this.dx = 0;
     }
 
+    public void onDeath(){
+        // Do nothing
+    }
+
     public int getHealth(){
         return health;
     }
 
+    private void checkDead(){
+        if(health <= 0) onDeath();
+    }
+
     public void incHealth(int healthDelta){
         health += healthDelta;
+        checkDead();
     }
 
     public void decHealth(int healthDelta){
@@ -33,6 +42,7 @@ public abstract class Character extends Collidable {
 
     public void setHealth(int health){
         this.health = health;
+        checkDead();
     }
 
     @Override

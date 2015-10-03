@@ -1,9 +1,11 @@
 package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.mygdx.game.InfiniteScrollingScreen;
 import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
 
@@ -13,14 +15,16 @@ import com.mygdx.game.util.SpriteSheet;
 public class Player extends com.mygdx.game.objects.characters.Character {
     private static String TAG = Player.class.getSimpleName();
 
+    private InfiniteScrollingScreen screen;
     private int score;
     public int speed;
     private Texture[] healthBars;
     Sound arrowSound = Gdx.audio.newSound(Gdx.files.internal("sound/Arrow.mp3"));
     
 
-    public Player(SpriteSheet spriteSheet, int health, float width, float height) {
+    public Player(SpriteSheet spriteSheet, int health, float width, float height, InfiniteScrollingScreen screen) {
         super(spriteSheet, health, width, height);
+        this.screen = screen;
         this.score = 0;
         this.speed = 200;
         this.healthBars = new Texture[4];
@@ -42,6 +46,12 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     
     public int getScore(){
     	return score;
+    }
+
+    @Override
+    public void onDeath(){
+        super.onDeath();
+        screen.onPlayerDeath();
     }
     
     public Texture getHealthbar(){

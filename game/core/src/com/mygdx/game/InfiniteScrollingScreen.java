@@ -71,6 +71,8 @@ public class InfiniteScrollingScreen implements Screen {
     private ArrayList<Projectile> projectiles;
     private ArrayList<Enemy> enemies;
 
+    private Music music;
+
     private OrkGame game;
 
     public InfiniteScrollingScreen(OrkGame game){
@@ -127,7 +129,7 @@ public class InfiniteScrollingScreen implements Screen {
 
         Texture playerSheet = new Texture("OrcSpritesheet.png");
         SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
-        player = new Player(sheet, 3, playerSize, playerSize);
+        player = new Player(sheet, 3, playerSize, playerSize, this);
         stage.addActor(player);
         stage.setKeyboardFocus(player);
         player.moveTo(350, 50);
@@ -164,9 +166,10 @@ public class InfiniteScrollingScreen implements Screen {
             }
         });
 
-        Music music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));
+        music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));
         music.setLooping(true);
         music.play();
+
     }
 
     @Override
@@ -335,7 +338,9 @@ public class InfiniteScrollingScreen implements Screen {
 
     @Override
     public void hide() {
-
+        if(music.isPlaying()){
+            music.stop();
+        }
     }
 
     @Override
@@ -375,5 +380,9 @@ public class InfiniteScrollingScreen implements Screen {
         SpriteSheet lRobotSprite = new SpriteSheet(lRobotSheet, 1, 2, 0.3f);
         LaserRobot laserRobot = new LaserRobot(lRobotSprite, 1, playerSize, playerSize);
         return laserRobot;
+    }
+
+    public void onPlayerDeath(){
+        game.setScreen(game.endScreen);
     }
 }

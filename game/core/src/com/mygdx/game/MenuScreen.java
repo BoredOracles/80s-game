@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 /**
  * Created by paul on 03/10/15.
  */
-public class MainMenuScreen implements Screen {
+public class MenuScreen implements Screen {
     private SpriteBatch batch;
     private Texture background;
     private OrthographicCamera camera;
@@ -22,8 +22,9 @@ public class MainMenuScreen implements Screen {
 
     private OrkGame game;
 
-    public MainMenuScreen(OrkGame game){
+    public MenuScreen(OrkGame game, Texture background){
         this.game = game;
+        this.background = background;
     }
 
     @Override
@@ -31,7 +32,6 @@ public class MainMenuScreen implements Screen {
         screenWidth = 1200;
         screenHeight = 1000;
 
-        background = new Texture("start screen.jpg");
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
