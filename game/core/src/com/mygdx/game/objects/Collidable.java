@@ -1,6 +1,7 @@
 package com.mygdx.game.objects;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.objects.characters.Player;
 
@@ -20,4 +21,7 @@ public abstract class Collidable extends Rectangle {
 
     public abstract void onCollide(Player player);
 
+    public void draw(SpriteBatch batch){
+        batch.draw(sprite, x, y, width, height);
+    }
 }

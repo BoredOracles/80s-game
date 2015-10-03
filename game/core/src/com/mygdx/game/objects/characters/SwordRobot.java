@@ -2,7 +2,6 @@ package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.objects.weapons.Sword;
-import com.mygdx.game.objects.weapons.Weapon;
 import com.mygdx.game.util.SpriteSheet;
 
 /**
