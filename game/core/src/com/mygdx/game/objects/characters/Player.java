@@ -42,7 +42,10 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     }
     
     public Texture getHealthbar(){
-    	return healthBars[this.getHealth()]; //breaks if given <0 or >3
+        if(getHealth() > 0 && getHealth() <= 3){
+            return healthBars[getHealth()];
+        }
+        return healthBars[0];
     }
 
 }

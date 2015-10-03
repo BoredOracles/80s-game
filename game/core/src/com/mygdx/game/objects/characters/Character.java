@@ -37,6 +37,7 @@ public abstract class Character extends Collidable {
 
     @Override
     public void draw(SpriteBatch batch){
+        super.updateRect();
         batch.draw(spriteSheet.getCurrentFrame(), getX(), getY(), getWidth(), getHeight());
     }
 }
