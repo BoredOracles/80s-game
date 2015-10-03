@@ -9,8 +9,8 @@ import com.mygdx.game.util.SpriteSheet;
 public abstract class Enemy extends Character {
     int collisionDamage;
 
-    public Enemy(SpriteSheet spriteSheet, Weapon weapon, float width, float height) {
-        super(spriteSheet, weapon, width, height);
+    public Enemy(SpriteSheet spriteSheet, float width, float height) {
+        super(spriteSheet, width, height);
     }
 
 
