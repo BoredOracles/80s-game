@@ -1,6 +1,5 @@
 package com.mygdx.game.objects.characters;
 
-import com.mygdx.game.objects.weapons.Weapon;
 import com.mygdx.game.util.SpriteSheet;
 
 /**

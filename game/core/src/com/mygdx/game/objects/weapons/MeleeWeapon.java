@@ -7,7 +7,7 @@ import com.mygdx.game.objects.characters.Player;
 /**
  * Created by paul on 03/10/15.
  */
-public abstract class MeleeWeapon extends Collidable implements Weapon {
+public abstract class MeleeWeapon extends Collidable {
     boolean isAttacking;
     int damage;
 

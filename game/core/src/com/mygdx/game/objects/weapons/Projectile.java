@@ -7,7 +7,7 @@ import com.mygdx.game.objects.characters.Player;
 /**
  * Created by paul on 03/10/15.
  */
-public class Projectile extends Collidable implements Weapon{
+public class Projectile extends Collidable{
     int damage;
 
     public Projectile(Sprite sprite, int damage) {
