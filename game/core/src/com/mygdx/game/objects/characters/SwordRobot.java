@@ -14,8 +14,8 @@ public class SwordRobot extends Enemy {
 	private Sound [] sounds;
 	private Random random;
 	
-    public SwordRobot(SpriteSheet spriteSheet, float width, float height){
-        super(spriteSheet, width, height);
+    public SwordRobot(SpriteSheet spriteSheet, int health, float width, float height){
+        super(spriteSheet, health, width, height);
         sounds = new Sound[3];
         sounds[0] = Gdx.audio.newSound(Gdx.files.internal("sound/sword.mp3"));
         sounds[1] = Gdx.audio.newSound(Gdx.files.internal("sound/sword2.mp3"));

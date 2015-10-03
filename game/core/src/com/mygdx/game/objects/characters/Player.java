@@ -15,9 +15,8 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     private Texture[] healthBars;
     
 
-    public Player(SpriteSheet spriteSheet, float width, float height) {
-        super(spriteSheet, width, height);
-        this.setHealth(3);
+    public Player(SpriteSheet spriteSheet, int health, float width, float height) {
+        super(spriteSheet, health, width, height);
         this.score = 0;
         this.speed = 200;
         this.healthBars = new Texture[4];

@@ -96,7 +96,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         Texture playerSheet = new Texture("OrcSpritesheet.png");
         SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
-        player = new Player(sheet, playerSize, playerSize);
+        player = new Player(sheet, 3, playerSize, playerSize);
         stage.addActor(player);
         stage.setKeyboardFocus(player);
         player.moveTo(350, 50);
@@ -230,14 +230,14 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private SwordRobot spawnSwordRobot(){
     	Texture sRobotSheet = new Texture("SwordRobotSpritesheet.png");
     	SpriteSheet sRobotSprite = new SpriteSheet(sRobotSheet, 1, 2, 0.3f);
-    	SwordRobot swordRobot = new SwordRobot(sRobotSprite, playerSize, playerSize);
+    	SwordRobot swordRobot = new SwordRobot(sRobotSprite, 1, playerSize, playerSize);
     	return swordRobot;
     }
     
     private LaserRobot spawnLaserRobot(){
     	Texture lRobotSheet = new Texture("EyeRobotSpritesheet.png");
     	SpriteSheet lRobotSprite = new SpriteSheet(lRobotSheet, 1, 2, 0.3f);
-    	LaserRobot laserRobot = new LaserRobot(lRobotSprite, playerSize, playerSize);
+    	LaserRobot laserRobot = new LaserRobot(lRobotSprite, 1, playerSize, playerSize);
     	return laserRobot;
     }
 }

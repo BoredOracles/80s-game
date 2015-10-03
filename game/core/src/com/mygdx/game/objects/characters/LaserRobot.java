@@ -12,8 +12,8 @@ public class LaserRobot extends Enemy {
     private static Texture laser = new Texture("Laser.png");
     private static Sprite sprite = new Sprite(laser);
 
-    public LaserRobot(SpriteSheet spriteSheet, float width, float height){
-        super(spriteSheet, width, height);
+    public LaserRobot(SpriteSheet spriteSheet, int health, float width, float height){
+        super(spriteSheet, health, width, height);
     }
 
 }
