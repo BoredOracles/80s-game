@@ -86,6 +86,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         backImage = new Texture("background.jpg");
 
+
         projectiles = new ArrayList<Projectile>();
         enemies = new ArrayList<Enemy>();
 
@@ -164,13 +165,17 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         player.draw(batch);
         
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
-        car.draw(batch);
-        
+
         ArrayList<Integer> toDestroy = new ArrayList<Integer>();
         for (Projectile proj : projectiles){
+            proj.draw(batch);
+
+            if(proj.collidingWith(player)) {
+                proj.onCollide(player);
+            }
+
         	if (proj.getY() < -100) toDestroy.add(projectiles.indexOf(proj));
-        	// TODO: check collisions with enemies and player
-        	
+
         }
         for (Integer i : toDestroy){
         	projectiles.remove(i.intValue());
@@ -211,7 +216,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private Projectile spawnCar(){
     	Texture carTexture = new Texture("Delorean.png");
     	Sprite carSprite = new Sprite(carTexture);
-    	Projectile car = new Projectile(carSprite, 3, -1000, carSize, carSize);
+    	Projectile car = new Projectile(carSprite, 3, -100, carSize, carSize);
     	return car;
     }
     
