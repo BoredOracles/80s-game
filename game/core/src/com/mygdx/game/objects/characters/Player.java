@@ -1,6 +1,7 @@
 package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.util.SpriteSheet;
 
 /**
@@ -11,12 +12,15 @@ public class Player extends com.mygdx.game.objects.characters.Character {
 
     private int score;
     public int speed;
+    private Texture healthBar;
+    //private Texture[] healthBars;
     
 
     public Player(SpriteSheet spriteSheet, float width, float height) {
         super(spriteSheet, width, height);
         this.score = 0;
         this.speed = 200;
+        healthBar = new Texture("HealthBar3.png");
     }
 
     @Override
@@ -31,6 +35,10 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     
     public int getScore(){
     	return score;
+    }
+    
+    public Texture getHealthbar(){
+    	return this.healthBar;
     }
 
 }

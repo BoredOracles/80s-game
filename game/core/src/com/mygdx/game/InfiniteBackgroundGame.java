@@ -7,9 +7,11 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -24,7 +26,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private SpriteBatch batch;
     private Texture background;
     private Texture backImage;
-    private Texture healthBar;
+
 
     private float secondBgY;
     private float currentBgY;
@@ -39,12 +41,20 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private int screenWidth;
     private int screenHeight;
     private int playerSize;
+    
+    private BitmapFont font;
 
     @Override
     public void create() {
         screenWidth = 1200;
         screenHeight = 1000;
         playerSize = 100; 
+        
+        font = new BitmapFont();
+        
+        font.getData().setScale(4f,4f);
+        
+        font.setColor(Color.GREEN);
         
         camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
@@ -59,7 +69,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         backImage = new Texture("background.jpg");
 
-        healthBar = new Texture("HealthBar3.png");
+
 
 
         stage = new Stage();
@@ -123,13 +133,15 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         batch.draw(background, 0, currentBgY, screenWidth, screenHeight);
         batch.draw(backImage, 0, secondBgY - screenHeight, screenWidth, screenHeight);
         batch.draw(backImage, 0, secondBgY, screenWidth, screenHeight);
-        batch.draw(healthBar, 1200 - 136, 960, 136, 40);
+        batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight- 80, 272, 80);
         player.move(player.dx, 0);
         if (player.getX() <= 0 || player.getX() >= screenWidth-playerSize){
         	player.move(-player.dx, 0);
         }
         
         player.draw(batch);
+        
+        font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
         batch.end();
 
         if(TimeUtils.nanoTime() - lastTimeBg > 50000000){
