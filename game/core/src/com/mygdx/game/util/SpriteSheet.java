@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.game.InfiniteBackgroundGame;
+import com.mygdx.game.InfiniteScrollingScreen;
 
 /**
  * Created by paul on 03/10/15.
@@ -35,6 +35,6 @@ public class SpriteSheet extends Sprite {
     }
 
     public TextureRegion getCurrentFrame(){
-        return animation.getKeyFrame(InfiniteBackgroundGame.getStateTime(), true);
+        return animation.getKeyFrame(InfiniteScrollingScreen.getStateTime(), true);
     }
 }
