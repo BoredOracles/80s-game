@@ -11,8 +11,8 @@ public class Player extends com.mygdx.game.objects.characters.Character {
 
     int numPlutonium;
 
-    public Player(Sprite sprite) {
-        super(sprite);
+    public Player(Sprite sprite, float width, float height) {
+        super(sprite, width, height);
         this.numPlutonium = 0;
     }
 

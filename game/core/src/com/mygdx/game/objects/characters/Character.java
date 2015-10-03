@@ -2,6 +2,7 @@ package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
 import com.mygdx.game.objects.weapons.Weapon;
 
@@ -11,14 +12,18 @@ import com.mygdx.game.objects.weapons.Weapon;
 public abstract class Character extends Collidable {
     int health;
     Weapon weapon;
+    public float width;
+    public float height;
 
-    public Character(Sprite sprite, Weapon weapon){
+    public Character(Sprite sprite, Weapon weapon, float width, float height){
         super(sprite);
         this.weapon = weapon;
+        this.width = width;
+        this.height = height;
     }
 
-    public Character(Sprite sprite){
-        this(sprite, null);
+    public Character(Sprite sprite, float width, float height){
+        this(sprite, null, width, height);
     }
 
     public void move(float x, float y){
@@ -27,8 +32,8 @@ public abstract class Character extends Collidable {
     }
 
     public void moveTo(float x, float y){
-        this.x = x * Gdx.graphics.getDeltaTime();
-        this.y = y * Gdx.graphics.getDeltaTime();
+        this.x = x;
+        this.y = y;
     }
 
     public void attack(){
@@ -49,5 +54,9 @@ public abstract class Character extends Collidable {
 
     public void setHealth(int health){
         this.health = health;
+    }
+
+    public void draw(SpriteBatch batch){
+        batch.draw(getSprite(), x, y, width, height);
     }
 }
