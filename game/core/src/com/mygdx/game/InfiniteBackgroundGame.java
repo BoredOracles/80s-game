@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mygdx.game.objects.characters.Enemy;
 import com.mygdx.game.objects.characters.Player;
 import com.mygdx.game.util.SpriteSheet;
 
@@ -23,6 +24,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private SpriteBatch batch;
     private Texture background;
     private Texture backImage;
+    private Texture healthBar;
 
     private float secondBgY;
     private float currentBgY;
@@ -60,7 +62,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         backImage = new Texture("background.jpg");
 
-        
+        healthBar = new Texture("HealthBar3.png");
 
 
         stage = new Stage();
@@ -128,7 +130,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         batch.draw(background, 0, currentBgY, screenWidth, screenHeight);
         batch.draw(backImage, 0, secondBgY - screenHeight, screenWidth, screenHeight);
         batch.draw(backImage, 0, secondBgY, screenWidth, screenHeight);
-        
+        batch.draw(healthBar, 1200 - 136, 960, 136, 40);
         player.move(player.dx, 0);
         if (player.getX() <= 0 || player.getX() >= screenWidth-playerSize){
         	player.move(-player.dx, 0);
@@ -166,4 +168,5 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     public static float getStateTime(){
         return stateTime;
     }
+    
 }
