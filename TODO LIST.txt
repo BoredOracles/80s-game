@@ -3,43 +3,8 @@ Todo list:
 start screen
 game over screen - high scores
 sfx volumes
-lazers dont destroy robots
-delorans dont destroy robots
-destroy lazers on collision
-
-increase score+life per kill
-animation
-
-sound effects on:
-arrow fire
-robot dying
-gun firing
-sword swinging (choose from 3)
-car entry
-
-Enemy Generation Algorithm:
-
-Sword = 5
-Car = 7
-Lazer = 10
-
-enemies = []
-total = 0
-while total < score {
-	enemy = new random enemy
-	enemies.append( enemy )
-	total += enemy.value
-	total *= length(enemies)
-}
-
-for enemy : enemies
-	assign random time from 0 to 5 seconds - wait that long before spawning
-	if car: assign random x from 0-4
-		multiply by like 48 or something
-	else:
-		assign random x from 0 to (screenwidth - enemywidth)
-
-listen for when that time has elapsed
-
-
-
+lazers come from closer to robot
+arrows come from closer to player
+plutonium
+cars stay in lanes
+sound effect car entry
