@@ -1,10 +1,12 @@
 Todo list:
 
-start screen
-game over screen - high scores
+hidden high scores file
+display high score on end screen
+pause end screen for a few seconds so players dont accidentally exit immediately upon entry
 sfx volumes
 lazers come from closer to robot
 arrows come from closer to player
-plutonium
+sync plutonium crates w/ bg movement
 cars stay in lanes
+add sfx for regaining hp
 sound effect car entry

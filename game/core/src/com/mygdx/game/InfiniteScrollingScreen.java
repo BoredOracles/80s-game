@@ -126,6 +126,8 @@ public class InfiniteScrollingScreen implements Screen {
         enemies = new ArrayList<Enemy>();
         
         alreadyCollided = new ArrayList<Enemy>();
+        
+        pickUps = new ArrayList<Pickup>();
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -202,6 +204,9 @@ public class InfiniteScrollingScreen implements Screen {
         for(Enemy enemy: enemies){
             enemy.draw(batch);
         }
+        for(Pickup pickup:pickUps){
+        	pickup.draw(batch);
+        }
 
         player.draw(batch);
 
@@ -230,6 +235,7 @@ public class InfiniteScrollingScreen implements Screen {
 
         ArrayList<Integer> toDestroy = new ArrayList<Integer>();
         ArrayList<Integer> toDestroyRobot = new ArrayList<Integer>();
+        ArrayList<Integer> pickedUp = new ArrayList<Integer>();
         for (Projectile proj : projectiles){
             proj.draw(batch);
 
@@ -250,6 +256,11 @@ public class InfiniteScrollingScreen implements Screen {
                     	player.incHealth(1); 
                     	//TODO play sound}
                     }
+                    if (random.nextInt(4)==0){               	//drop plutonium
+                    	Plutonium drop = spawnPlutonium();
+                    	drop.moveTo(robot.getX(), robot.getY());
+                    	pickUps.add(drop);        
+                    }
                 }
             }
 
@@ -265,6 +276,14 @@ public class InfiniteScrollingScreen implements Screen {
         	if (robot.getY() < -200){
         		toDestroyRobot.add(enemies.indexOf(robot));
         	}
+        }
+        
+        for (Pickup pluto : pickUps){
+        	if (pluto.collidingWith(player)){
+        		pickedUp.add(pickUps.indexOf(pluto));
+        		player.incScore(5);
+        	}
+        	pluto.move(0, -275); //TODO make it sync with background
         }
 
         count = 0;
@@ -283,6 +302,14 @@ public class InfiniteScrollingScreen implements Screen {
             enemies.remove(i -count);
             count++;
         }
+        
+        count = 0;
+        Collections.sort(pickedUp);
+        for (int i : pickedUp){
+        	pickUps.remove(i-count);
+        	count++;
+        }
+        
 
         for (Enemy enemy: enemies){
             if(enemy instanceof LaserRobot){
@@ -305,6 +332,8 @@ public class InfiniteScrollingScreen implements Screen {
             	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -100);
             }
         }
+        
+        
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
         batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight- 80, 272, 80);
         batch.end();
