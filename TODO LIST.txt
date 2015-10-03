@@ -1,8 +1,10 @@
 Todo list:
 
 allow arrow firing
-hp gauge
+hp gauge in front of others
+start screen
 game over screen - high scores
+sfx volumes
 
 add enemies
 -cars
@@ -43,4 +45,6 @@ for enemy : enemies
 		assign random x from 0 to (screenwidth - enemywidth)
 
 listen for when that time has elapsed
+
+
 
