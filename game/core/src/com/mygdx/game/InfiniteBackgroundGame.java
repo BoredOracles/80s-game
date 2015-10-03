@@ -105,9 +105,6 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         stage.setKeyboardFocus(player);
         player.moveTo(350, 50);
 
-        projectiles.add(player.fireArrow());
-        projectiles.get(0).moveTo(player.getX(), player.getY() + 128);
-
         player.addListener(new InputListener() {
             @Override
             public boolean keyUp(InputEvent event, int keyCode) {
@@ -119,7 +116,6 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                 return true;
             }
         });
-        
         player.addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keyCode) {
@@ -128,6 +124,13 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                 }
                 else if(keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A){
                     player.dx = -player.speed;
+                }
+                else if(keyCode == Input.Keys.SPACE){
+                    Projectile arrow;
+                    arrow = player.fireArrow();
+                    arrow.moveTo(player.getX()+ 32, player.getY() + 128);
+                    projectiles.add(arrow);
+
                 }
                 return true;
             }
