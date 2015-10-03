@@ -21,17 +21,6 @@ public abstract class Character extends Collidable {
         this.height = height;
     }
 
-
-    public void move(float x, float y){
-        this.x += x * Gdx.graphics.getDeltaTime();
-        this.y += y * Gdx.graphics.getDeltaTime();
-    }
-
-    public void moveTo(float x, float y){
-        this.x = x;
-        this.y = y;
-    }
-
     public int getHealth(){
         return health;
     }
@@ -50,6 +39,6 @@ public abstract class Character extends Collidable {
 
     @Override
     public void draw(SpriteBatch batch){
-        batch.draw(spriteSheet.getCurrentFrame(), x, y, width, height);
+        batch.draw(spriteSheet.getCurrentFrame(), getX(), getY(), width, height);
     }
 }
