@@ -12,8 +12,8 @@ public abstract class Enemy extends Character {
 	Sound playerDeath = Gdx.audio.newSound(Gdx.files.internal("sound/OrcDeath.mp3"));
     int collisionDamage;
 
-    public Enemy(SpriteSheet spriteSheet, float width, float height) {
-        super(spriteSheet, width, height);
+    public Enemy(SpriteSheet spriteSheet, int health, float width, float height) {
+        super(spriteSheet, health, width, height);
     }
 
     @Override

@@ -15,8 +15,8 @@ public class LaserRobot extends Enemy {
     private static Sprite laserSprite = new Sprite(laserText);
     private static Projectile laser;
 
-    public LaserRobot(SpriteSheet spriteSheet, float width, float height){
-        super(spriteSheet, width, height);
+    public LaserRobot(SpriteSheet spriteSheet, int health, float width, float height){
+        super(spriteSheet, health, width, height);
     }
 
     public Projectile fireLaser(){

@@ -12,8 +12,9 @@ public abstract class Character extends Collidable {
     public SpriteSheet spriteSheet;
     public int dx;
 
-    public Character(SpriteSheet spriteSheet, float width, float height) {
+    public Character(SpriteSheet spriteSheet, int health, float width, float height) {
         super(spriteSheet, width, height);
+        this.health = health;
         this.spriteSheet = spriteSheet;
         this.dx = 0;
     }
