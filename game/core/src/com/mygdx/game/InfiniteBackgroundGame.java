@@ -18,7 +18,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.mygdx.game.objects.characters.Enemy;
 import com.mygdx.game.objects.characters.Player;
 import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
@@ -186,7 +185,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private Projectile spawnCar(){
     	Texture carTexture = new Texture("Delorean.png");
     	Sprite carSprite = new Sprite(carTexture);
-    	Projectile car = new Projectile(carSprite, 3, carSize, carSize);
+    	Projectile car = new Projectile(carSprite, 3, -1000, carSize, carSize);
     	return car;
     }
 }
