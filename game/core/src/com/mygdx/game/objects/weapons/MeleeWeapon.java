@@ -22,7 +22,7 @@ public abstract class MeleeWeapon extends Collidable {
         if(isAttacking) player.decHealth(damage);
     }
 
-    @Override
+
     public void attack() {
         //TODO: Animate and add sound effect
     }

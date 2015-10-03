@@ -20,7 +20,6 @@ public class Projectile extends Collidable{
         player.decHealth(damage);
     }
 
-    @Override
     public void attack() {
         //TODO:Implement attack
     }
