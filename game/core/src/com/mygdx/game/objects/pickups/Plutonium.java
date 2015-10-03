@@ -13,7 +13,7 @@ public class Plutonium extends Pickup {
 
     @Override
     public void onCollide(Player player) {
-        player.incPlutoniumCount();
+        player.incScore(5);
     }
 
 }
