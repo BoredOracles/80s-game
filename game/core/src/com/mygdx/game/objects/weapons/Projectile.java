@@ -1,6 +1,7 @@
 package com.mygdx.game.objects.weapons;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
@@ -14,6 +15,10 @@ public class Projectile extends Collidable {
     private int damage;
     private float vY;
 
+	private static Sound grunt = Gdx.audio.newSound(Gdx.files.internal("sound/grunt.mp3"));
+
+	private static Sound playerDeath = Gdx.audio.newSound(Gdx.files.internal("sound/OrcDeath.mp3"));
+    
     public Projectile(Sprite sprite, int damage, float speed, float width, float height) {
         super(sprite, width, height);
         this.damage = damage;
@@ -27,6 +32,11 @@ public class Projectile extends Collidable {
     @Override
     public void onCollide(Player player) {
         player.decHealth(damage);
+        if (player.getHealth() <= 0){
+        	playerDeath.play();
+        	//TODO: game over screen
+        } else {
+    	grunt.play(); }
     }
 
     public void onCollideRobot(Enemy robot) {

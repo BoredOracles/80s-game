@@ -80,13 +80,16 @@ public class InfiniteScrollingScreen implements Screen {
     }
 
 
+    
+    private ArrayList<Enemy> alreadyCollided;
+    
     @Override
     public void show() {
         screenWidth = 1200;
         screenHeight = 1000;
         playerSize = 100;
-        carSize = 200;
-
+        carSize = 64*3;
+        
         font = new BitmapFont();
 
         font.getData().setScale(4f,4f);
@@ -118,15 +121,16 @@ public class InfiniteScrollingScreen implements Screen {
 
         projectiles = new ArrayList<>();
         enemies = new ArrayList<>();
+        
+        alreadyCollided = new ArrayList<Enemy>();
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
         Texture robotText = new Texture("EyeRobotSpritesheet.png");
         SpriteSheet robotSheet = new SpriteSheet(robotText, 1, 2, 0.3f);
-        enemies.add(new LaserRobot(robotSheet, 1, playerSize, playerSize));
-        enemies.get(0).moveTo(350, 900);
 
+        
         Texture playerSheet = new Texture("OrcSpritesheet.png");
         SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
         player = new Player(sheet, 3, playerSize, playerSize, this);
@@ -220,7 +224,6 @@ public class InfiniteScrollingScreen implements Screen {
             count++;
         }
 
-
         ArrayList<Integer> toDestroy = new ArrayList<Integer>();
         ArrayList<Integer> toDestroyRobot = new ArrayList<Integer>();
         for (Projectile proj : projectiles){
@@ -236,13 +239,25 @@ public class InfiniteScrollingScreen implements Screen {
                 if(proj.collidingWithRobot(robot)){
                     robot.decHealth(1);
                     toDestroyRobot.add(enemies.indexOf(robot));
-                    toDestroy.add(projectiles.indexOf(proj));
+                    if (proj.getHeight() != carSize) {
+                    toDestroy.add(projectiles.indexOf(proj)); } //actually terrible hack
                     player.incScore(3);
+                    player.incHealth(1);
                 }
             }
 
             if (proj.getY() < -200) toDestroy.add(projectiles.indexOf(proj));
 
+        }
+        
+        for (Enemy robot : enemies){
+        	if (robot.collidingWith(player) && !alreadyCollided.contains(robot)){
+        		robot.onCollide(player);
+        		alreadyCollided.add(robot);
+        	}
+        	if (robot.getY() < -200){
+        		toDestroyRobot.add(enemies.indexOf(robot));
+        	}
         }
 
         count = 0;
@@ -256,6 +271,10 @@ public class InfiniteScrollingScreen implements Screen {
         Collections.sort(toDestroyRobot);
         for (Integer i : toDestroyRobot){
             enemies.remove(i -count);
+        	if (alreadyCollided.contains(enemies.get(i))) {
+        		alreadyCollided.remove(enemies.get(i));
+        	}
+            enemies.remove(i.intValue()-count);
             count++;
         }
 
@@ -268,13 +287,16 @@ public class InfiniteScrollingScreen implements Screen {
                 }
             }
             if(player.getX() < enemy.getX()){
-                enemy.setX(enemy.getX() - Gdx.graphics.getDeltaTime() * 20);
+                enemy.setX(enemy.getX() - Gdx.graphics.getDeltaTime() * 80);
             }
             else if(player.getX() > enemy.getX()){
-                enemy.setX((enemy).getX() + Gdx.graphics.getDeltaTime() * 20);
+                enemy.setX((enemy).getX() + Gdx.graphics.getDeltaTime() * 80);
             }
             if(enemy instanceof SwordRobot){
-                enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -30);
+            	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -300);
+            }
+            else if(enemy instanceof LaserRobot){
+            	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -100);
             }
         }
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
@@ -291,9 +313,9 @@ public class InfiniteScrollingScreen implements Screen {
             currentBgY = screenHeight;
             secondBgY = 0;
             player.incScore(5);
-
+            
             //enemy generation for next tesselation
-
+            
             newEnemies = new ArrayList<Collidable>();
             int total = 0;
             while (total < player.getScore()){
@@ -330,12 +352,10 @@ public class InfiniteScrollingScreen implements Screen {
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
@@ -355,28 +375,28 @@ public class InfiniteScrollingScreen implements Screen {
     public static float getStateTime(){
         return stateTime;
     }
-
+    
     private Projectile spawnCar(){
-        Texture carTexture = new Texture("Delorean.png");
-        Sprite carSprite = new Sprite(carTexture);
-        Projectile car = new Projectile(carSprite, 3, -100, carSize, carSize);
-        return car;
+    	Texture carTexture = new Texture("Delorean.png");
+    	Sprite carSprite = new Sprite(carTexture);
+    	Projectile car = new Projectile(carSprite, 3, -600, (int)(carSize*.625), carSize);
+    	return car;
     }
-
+    
     private Plutonium spawnPlutonium(){
-        Texture plutoniumTexture = new Texture("Plutonium.png");
-        Sprite plutoniumSprite = new Sprite(plutoniumTexture);
-        Plutonium plutonium = new Plutonium(plutoniumSprite, playerSize, playerSize);
-        return plutonium;
+    	Texture plutoniumTexture = new Texture("Plutonium.png");
+    	Sprite plutoniumSprite = new Sprite(plutoniumTexture);
+    	Plutonium plutonium = new Plutonium(plutoniumSprite, playerSize, playerSize);
+    	return plutonium;
     }
-
+    
     private SwordRobot spawnSwordRobot(){
-        Texture sRobotSheet = new Texture("SwordRobotSpritesheet.png");
-        SpriteSheet sRobotSprite = new SpriteSheet(sRobotSheet, 2, 2, 0.12f);
-        SwordRobot swordRobot = new SwordRobot(sRobotSprite, 1, playerSize, playerSize);
-        return swordRobot;
+    	Texture sRobotSheet = new Texture("SwordRobotSpritesheet.png");
+    	SpriteSheet sRobotSprite = new SpriteSheet(sRobotSheet, 2, 2, 0.12f);
+    	SwordRobot swordRobot = new SwordRobot(sRobotSprite, 1, playerSize, playerSize);
+    	return swordRobot;
     }
-
+    
     private LaserRobot spawnLaserRobot(){
         Texture lRobotSheet = new Texture("EyeRobotSpritesheet.png");
         SpriteSheet lRobotSprite = new SpriteSheet(lRobotSheet, 1, 2, 0.3f);

@@ -33,6 +33,7 @@ public abstract class Character extends Collidable {
 
     public void incHealth(int healthDelta){
         health += healthDelta;
+        if (health > 3) {health = 3;}
         checkDead();
     }
 
