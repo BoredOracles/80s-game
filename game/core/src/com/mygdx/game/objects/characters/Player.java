@@ -9,11 +9,11 @@ import com.mygdx.game.util.SpriteSheet;
 public class Player extends com.mygdx.game.objects.characters.Character {
     private static String TAG = Player.class.getSimpleName();
 
-    int numPlutonium;
+    private int score;
 
     public Player(SpriteSheet spriteSheet, float width, float height) {
         super(spriteSheet, width, height);
-        this.numPlutonium = 0;
+        this.score = 0;
     }
 
     @Override
@@ -22,11 +22,11 @@ public class Player extends com.mygdx.game.objects.characters.Character {
         Gdx.app.error(TAG, "Player collided with self");
     }
 
-    public void incPlutoniumCount(){
-        incPlutoniumCount(1);
+    public void incScore(int deltaScore){
+        this.score += deltaScore;
     }
-
-    private void incPlutoniumCount(int numPlutonium){
-        this.numPlutonium += numPlutonium;
+    
+    public int getScore(){
+    	return score;
     }
 }
