@@ -214,6 +214,16 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         for (Integer i : toDestroyRobot){
             enemies.remove(i.intValue());
         }
+
+        for (Enemy enemy: enemies){
+            if(enemy instanceof LaserRobot){
+                if(TimeUtils.millis() - ((LaserRobot) enemy).getSinceLastLaser() > 1000) {
+                    Projectile laserFire = ((LaserRobot) enemy).fireLaser();
+                    laserFire.moveTo(enemy.getX() + 32, enemy.getY() - 128);
+                    projectiles.add(laserFire);
+                }
+            }
+        }
         
         
         batch.end();
