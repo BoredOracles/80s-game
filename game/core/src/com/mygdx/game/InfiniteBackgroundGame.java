@@ -106,7 +106,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         player.moveTo(350, 50);
 
         projectiles.add(player.fireArrow());
-        projectiles.get(0).moveTo(player.getX(), player.getY());
+        projectiles.get(0).moveTo(player.getX(), player.getY() + 128);
 
         player.addListener(new InputListener() {
             @Override
