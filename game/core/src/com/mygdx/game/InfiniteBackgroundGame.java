@@ -9,9 +9,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.objects.characters.Player;
 import com.mygdx.game.util.SpriteSheet;
@@ -45,7 +43,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         backImage = new Texture("background.jpg");
 
         Texture playerSheet = new Texture("OrcSpritesheet.png");
-        SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.5f);
+        SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
         player = new Player(sheet, 100, 100);
         player.moveTo(200, 200);
         Music music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));

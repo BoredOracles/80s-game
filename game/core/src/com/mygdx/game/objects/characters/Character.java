@@ -1,7 +1,6 @@
 package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
 import com.mygdx.game.util.SpriteSheet;
@@ -18,7 +17,6 @@ public abstract class Character extends Collidable {
     public Character(SpriteSheet spriteSheet, float width, float height) {
         super(spriteSheet);
         this.spriteSheet = spriteSheet;
-        //this.weapon = weapon;
         this.width = width;
         this.height = height;
     }
@@ -32,14 +30,6 @@ public abstract class Character extends Collidable {
     public void moveTo(float x, float y){
         this.x = x;
         this.y = y;
-    }
-
-    private boolean hasWeapon(){
-        //return weapon != null;
-    }
-
-    public void attack(){
-        //if(hasWeapon()) weapon.attack();
     }
 
     public int getHealth(){
