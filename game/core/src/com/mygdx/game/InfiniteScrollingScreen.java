@@ -99,13 +99,13 @@ public class InfiniteScrollingScreen implements Screen {
 
         font.setColor(Color.GREEN);
 
-        newEnemies = new ArrayList<>();
+        newEnemies = new ArrayList<Collidable>();
         newEnemyTimer = 0;
 
         random = new java.util.Random();
 
-        spawnTimes = new ArrayList<>();
-        spawnX = new ArrayList<>();
+        spawnTimes = new ArrayList<Double>();
+        spawnX = new ArrayList<Integer>();
         count = 0;
 
         camera = new OrthographicCamera();
@@ -122,8 +122,8 @@ public class InfiniteScrollingScreen implements Screen {
         backImage = new Texture("background.jpg");
 
 
-        projectiles = new ArrayList<>();
-        enemies = new ArrayList<>();
+        projectiles = new ArrayList<Projectile>();
+        enemies = new ArrayList<Enemy>();
         
         alreadyCollided = new ArrayList<Enemy>();
 
@@ -206,7 +206,7 @@ public class InfiniteScrollingScreen implements Screen {
 
 
 
-        ArrayList<Integer> toSpawn = new ArrayList<>();
+        ArrayList<Integer> toSpawn = new ArrayList<Integer>();
         for (Object o : newEnemies){
             if ( System.currentTimeMillis() - newEnemyTimer > spawnTimes.get(newEnemies.indexOf(o)) ){
                 toSpawn.add(newEnemies.indexOf(o));
@@ -248,11 +248,6 @@ public class InfiniteScrollingScreen implements Screen {
                     if (random.nextInt(4)==0){//chance of regaining HP 
                     	player.incHealth(1); 
                     	//TODO play sound}
-                    }
-                    if (random.nextInt(4)==0){               	//drop plutonium
-                    	Plutonium drop = spawnPlutonium();
-                    	drop.moveTo(robot.getX(), robot.getY());
-                    	pickUps.add(drop);               
                     }
                 }
             }
