@@ -10,10 +10,13 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     private static String TAG = Player.class.getSimpleName();
 
     private int score;
+    public int speed;
+    
 
     public Player(SpriteSheet spriteSheet, float width, float height) {
         super(spriteSheet, width, height);
         this.score = 0;
+        this.speed = 200;
     }
 
     @Override

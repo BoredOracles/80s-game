@@ -27,44 +27,76 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private float secondBgY;
     private float currentBgY;
     private long lastTimeBg;
+    private int deltaBg;
 
     private static float stateTime;
 
     private Stage stage;
     private Player player;
+    
+    private int screenWidth;
+    private int screenHeight;
+    private int playerSize;
 
     @Override
     public void create() {
+    	
+        
+        screenWidth = 1200;
+        screenHeight = 1000;
+        playerSize = 100; 
+        
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, screenWidth, screenHeight);
         batch = new SpriteBatch();
 
         background = new Texture("background.jpg");
-        currentBgY = 480;
+
+        currentBgY = screenHeight;
         secondBgY = 0;
+        deltaBg = 15;
         lastTimeBg = TimeUtils.nanoTime();
+        
 
         backImage = new Texture("background.jpg");
+
+        
+
 
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 
         Texture playerSheet = new Texture("OrcSpritesheet.png");
         SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
-        player = new Player(sheet, 100, 100);
+        player = new Player(sheet, playerSize, playerSize);
         stage.addActor(player);
         stage.setKeyboardFocus(player);
         player.moveTo(350, 50);
+        player.addListener(new InputListener(){
+            @Override
+            public boolean keyUp(InputEvent event, int keyCode) {
+                float movement = 20000 * Gdx.graphics.getDeltaTime();
+
+                if( (keyCode == Input.Keys.RIGHT || keyCode == Input.Keys.D) && player.dx > 0){
+                    player.dx = 0;
+                }
+                else if((keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A) && player.dx < 0){
+                    player.dx = 0;
+                }
+                return true;
+            }
+        });
+        
         player.addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keyCode) {
                 float movement = 20000 * Gdx.graphics.getDeltaTime();
 
                 if(keyCode == Input.Keys.RIGHT || keyCode == Input.Keys.D){
-                    player.move(movement, 0);
+                    player.dx = player.speed;
                 }
                 else if(keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A){
-                    player.move(-movement, 0);
+                    player.dx = -player.speed;
                 }
                 return true;
             }
@@ -92,22 +124,30 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
-        batch.draw(background, 0, currentBgY - 480, 800, 480);
-        batch.draw(background, 0, currentBgY, 800, 480);
-        batch.draw(backImage, 0, secondBgY - 480, 800, 480);
-        batch.draw(backImage, 0, secondBgY, 800, 480);
+        batch.draw(background, 0, currentBgY - screenHeight, screenWidth, screenHeight);
+        batch.draw(background, 0, currentBgY, screenWidth, screenHeight);
+        batch.draw(backImage, 0, secondBgY - screenHeight, screenWidth, screenHeight);
+        batch.draw(backImage, 0, secondBgY, screenWidth, screenHeight);
+        
+        player.move(player.dx, 0);
+        if (player.getX() <= 0 || player.getX() >= screenWidth-playerSize){
+        	player.move(-player.dx, 0);
+        }
+        
+        
         player.draw(batch);
         batch.end();
 
         if(TimeUtils.nanoTime() - lastTimeBg > 50000000){
-            currentBgY -= 30;
-            secondBgY -= 30;
+            currentBgY -= deltaBg;
+            secondBgY -= deltaBg;
             lastTimeBg = TimeUtils.nanoTime();
         }
 
-        if(currentBgY == 0){
-            currentBgY = 480;
+        if(currentBgY <= 0){
+            currentBgY = screenHeight;
             secondBgY = 0;
+            player.incScore(5);
         }
     }
 

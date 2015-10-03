@@ -13,12 +13,14 @@ public abstract class Character extends Collidable {
     public float width;
     public float height;
     public SpriteSheet spriteSheet;
+    public int dx;
 
     public Character(SpriteSheet spriteSheet, float width, float height) {
         super(spriteSheet);
         this.spriteSheet = spriteSheet;
         this.width = width;
         this.height = height;
+        this.dx = 0;
     }
 
     public int getHealth(){
