@@ -3,6 +3,8 @@ package com.mygdx.game;
 /**
  * Created by richy734 on 03/10/15.
  */
+import java.util.ArrayList;
+
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -55,6 +57,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private SwordRobot swordRobot;
     private LaserRobot laserRobot;
     
+    private ArrayList<Projectile> projectiles;
+    private ArrayList<Enemy> enemies;
+    
     @Override
     public void create() {
         screenWidth = 1200;
@@ -81,7 +86,8 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         backImage = new Texture("background.jpg");
 
-
+        projectiles = new ArrayList<Projectile>();
+        enemies = new ArrayList<Enemy>();
 
 
         stage = new Stage();
@@ -125,6 +131,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         
         car = spawnCar();
         stage.addActor(car);
+        projectiles.add(car);
     	car.moveTo(500, 400);
     }
 
@@ -158,6 +165,18 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
         car.draw(batch);
+        
+        ArrayList<Integer> toDestroy = new ArrayList<Integer>();
+        for (Projectile proj : projectiles){
+        	if (proj.getY() < -100) toDestroy.add(projectiles.indexOf(proj));
+        	// TODO: check collisions with enemies and player
+        	
+        }
+        for (Integer i : toDestroy){
+        	projectiles.remove(i.intValue());
+        }
+        
+        
         batch.end();
 
         if(TimeUtils.nanoTime() - lastTimeBg > 50000000){
