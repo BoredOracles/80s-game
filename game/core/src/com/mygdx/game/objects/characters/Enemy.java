@@ -9,9 +9,10 @@ import com.mygdx.game.objects.weapons.Weapon;
 public abstract class Enemy extends Character {
     int collisionDamage;
 
-    public Enemy(Sprite sprite, Weapon weapon) {
-        super(sprite, weapon);
+    public Enemy(Sprite sprite, Weapon weapon, float width, float height) {
+        super(sprite, weapon, width, height);
     }
+
 
     @Override
     public void onCollide(Player player){
