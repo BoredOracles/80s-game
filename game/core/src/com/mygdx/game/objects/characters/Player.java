@@ -29,4 +29,5 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     public int getScore(){
     	return score;
     }
+
 }

@@ -5,11 +5,15 @@ package com.mygdx.game;
  */
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.objects.characters.Player;
 import com.mygdx.game.util.SpriteSheet;
@@ -26,10 +30,13 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
     private static float stateTime;
 
+    private Stage stage;
     private Player player;
 
     @Override
     public void create() {
+
+
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
@@ -42,10 +49,28 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
         backImage = new Texture("background.jpg");
 
+        stage = new Stage();
+        Gdx.input.setInputProcessor(stage);
+
         Texture playerSheet = new Texture("OrcSpritesheet.png");
         SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
         player = new Player(sheet, 100, 100);
-        player.moveTo(200, 200);
+        stage.addActor(player);
+        stage.setKeyboardFocus(player);
+        player.moveTo(350, 50);
+        player.addListener(new InputListener(){
+            @Override
+            public boolean keyDown(InputEvent event, int keyCode) {
+                if(keyCode == Input.Keys.RIGHT || keyCode == Input.Keys.D){
+                    player.move(20000 * Gdx.graphics.getDeltaTime(), 0);
+                }
+                else if(keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A){
+                    player.move(-20000 * Gdx.graphics.getDeltaTime(), 0);
+                }
+                return true;
+            }
+        });
+
         Music music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));
         music.setLooping(true);
         music.play();
