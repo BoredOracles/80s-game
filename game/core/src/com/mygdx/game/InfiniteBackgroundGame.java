@@ -35,9 +35,6 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
     @Override
     public void create() {
-
-
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
         batch = new SpriteBatch();
@@ -61,11 +58,13 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         player.addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keyCode) {
+                float movement = 20000 * Gdx.graphics.getDeltaTime();
+
                 if(keyCode == Input.Keys.RIGHT || keyCode == Input.Keys.D){
-                    player.move(20000 * Gdx.graphics.getDeltaTime(), 0);
+                    player.move(movement, 0);
                 }
                 else if(keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A){
-                    player.move(-20000 * Gdx.graphics.getDeltaTime(), 0);
+                    player.move(-movement, 0);
                 }
                 return true;
             }
@@ -81,6 +80,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     public void dispose() {
         batch.dispose();
         background.dispose();
+        stage.dispose();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.mygdx.game.objects.characters;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.mygdx.game.util.SpriteSheet;
 
@@ -16,7 +15,6 @@ public abstract class Enemy extends Character {
     public Enemy(SpriteSheet spriteSheet, float width, float height) {
         super(spriteSheet, width, height);
     }
-
 
     @Override
     public void onCollide(Player player){
