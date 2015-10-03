@@ -63,6 +63,7 @@ public abstract class Character extends Collidable {
         this.health = health;
     }
 
+    @Override
     public void draw(SpriteBatch batch){
         batch.draw(spriteSheet.getCurrentFrame(), x, y, width, height);
     }
