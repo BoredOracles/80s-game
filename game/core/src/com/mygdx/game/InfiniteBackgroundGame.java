@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.objects.characters.Enemy;
 import com.mygdx.game.objects.characters.Player;
+import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
 
 public class InfiniteBackgroundGame implements ApplicationListener {
@@ -39,12 +41,16 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private int screenWidth;
     private int screenHeight;
     private int playerSize;
+    private int carSize;
 
+    private Projectile car;
+    
     @Override
     public void create() {
         screenWidth = 1200;
         screenHeight = 1000;
-        playerSize = 100; 
+        playerSize = 100;
+        carSize = 200;
         
         camera = new OrthographicCamera();
         camera.setToOrtho(false, screenWidth, screenHeight);
@@ -100,7 +106,10 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         Music music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));
         music.setLooping(true);
         music.play();
-
+        
+        car = spawnCar();
+        stage.addActor(car);
+    	car.moveTo(500, 400);
     }
 
     @Override
@@ -130,6 +139,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         }
         
         player.draw(batch);
+        car.draw(batch);
         batch.end();
 
         if(TimeUtils.nanoTime() - lastTimeBg > 50000000){
@@ -159,5 +169,12 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
     public static float getStateTime(){
         return stateTime;
+    }
+    
+    private Projectile spawnCar(){
+    	Texture carTexture = new Texture("Delorean.png");
+    	Sprite carSprite = new Sprite(carTexture);
+    	Projectile car = new Projectile(carSprite, 3, carSize, carSize);
+    	return car;
     }
 }
