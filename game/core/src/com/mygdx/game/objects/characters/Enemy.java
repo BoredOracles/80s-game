@@ -9,7 +9,8 @@ import com.mygdx.game.util.SpriteSheet;
  * Created by paul on 03/10/15.
  */
 public abstract class Enemy extends Character {
-	Sound sound = Gdx.audio.newSound(Gdx.files.internal("sound/grunt.mp3"));
+	Sound grunt = Gdx.audio.newSound(Gdx.files.internal("sound/grunt.mp3"));
+	Sound playerDeath = Gdx.audio.newSound(Gdx.files.internal("sound/OrcDeath.mp3"));
     int collisionDamage;
 
     public Enemy(SpriteSheet spriteSheet, float width, float height) {
@@ -19,7 +20,11 @@ public abstract class Enemy extends Character {
 
     @Override
     public void onCollide(Player player){
-    	sound.play();
         player.decHealth(collisionDamage);
+        if (player.getHealth() <= 0){
+        	playerDeath.play();
+        	//TODO: game over screen
+        }
+    	grunt.play();
     }
 }

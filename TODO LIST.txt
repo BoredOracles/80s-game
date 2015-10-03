@@ -1,0 +1,30 @@
+Todo list:
+
+Slow scroll speed
+Decrease player size
+change screen size
+add walls on sides
+choose good move speed
+increase score each tesselation
+allow arrow firing
+score counter
+hp gauge
+
+add enemies
+-cars
+-swords
+-eyes
+add ai
+increase score+life per kill
+enemy generation algorithm
+animation
+
+sound effects on:
+arrow fire
+getting hit
+dying
+robot dying
+gun firing
+sword swinging (choose from 3)
+car entry
+
