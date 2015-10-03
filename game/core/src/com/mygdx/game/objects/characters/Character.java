@@ -36,6 +36,10 @@ public abstract class Character extends Collidable {
         health += healthDelta;
     }
 
+    public void decHealth(int healthDelta){
+        incHealth(-healthDelta);
+    }
+
     public void setHealth(int health){
         this.health = health;
     }

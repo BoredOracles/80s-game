@@ -8,12 +8,15 @@ import com.mygdx.game.objects.characters.Player;
  * Created by paul on 03/10/15.
  */
 public class Arrow extends Collidable {
-    public Arrow(Sprite sprite) {
+    int damage;
+
+    public Arrow(Sprite sprite, int damage) {
         super(sprite);
+        this.damage = damage;
     }
 
     @Override
     public void onCollide(Player player) {
-
+        player.decHealth(damage);
     }
 }
