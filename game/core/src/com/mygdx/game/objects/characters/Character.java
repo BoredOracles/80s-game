@@ -3,15 +3,22 @@ package com.mygdx.game.objects.characters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.game.objects.Collidable;
+import com.mygdx.game.objects.weapons.Weapon;
 
 /**
  * Created by paul on 03/10/15.
  */
 public abstract class Character extends Collidable {
     int health;
+    Weapon weapon;
+
+    public Character(Sprite sprite, Weapon weapon){
+        super(sprite);
+        this.weapon = weapon;
+    }
 
     public Character(Sprite sprite){
-        super(sprite);
+        this(sprite, null);
     }
 
     public void move(float x, float y){
@@ -25,7 +32,7 @@ public abstract class Character extends Collidable {
     }
 
     public void attack(){
-        //TODO: Implement
+        if(weapon != null) weapon.attack();
     }
 
     public int getHealth(){

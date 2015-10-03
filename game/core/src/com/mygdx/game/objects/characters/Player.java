@@ -1,11 +1,14 @@
 package com.mygdx.game.objects.characters;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  * Created by paul on 03/10/15.
  */
 public class Player extends com.mygdx.game.objects.characters.Character {
+    private static String TAG = Player.class.getSimpleName();
+
     int numPlutonium;
 
     public Player(Sprite sprite) {
@@ -16,6 +19,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     @Override
     public void onCollide(Player player) {
         // There's only one player, so this should never be called
+        Gdx.app.error(TAG, "Player collided with self");
     }
 
     public void incPlutoniumCount(){
@@ -25,7 +29,4 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     private void incPlutoniumCount(int numPlutonium){
         this.numPlutonium += numPlutonium;
     }
-
-
-
 }
