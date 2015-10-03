@@ -143,6 +143,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         music.play();
         
         car = spawnCar();
+        SwordRobot robot = spawnSwordRobot();
+        stage.addActor(robot);
+        enemies.add(robot);
         stage.addActor(car);
         projectiles.add(car);
     	car.moveTo(500, 400);
@@ -260,7 +263,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     
     private SwordRobot spawnSwordRobot(){
     	Texture sRobotSheet = new Texture("SwordRobotSpritesheet.png");
-    	SpriteSheet sRobotSprite = new SpriteSheet(sRobotSheet, 1, 2, 0.3f);
+    	SpriteSheet sRobotSprite = new SpriteSheet(sRobotSheet, 2, 2, 0.12f);
     	SwordRobot swordRobot = new SwordRobot(sRobotSprite, 1, playerSize, playerSize);
     	return swordRobot;
     }
