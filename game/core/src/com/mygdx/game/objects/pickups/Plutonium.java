@@ -7,8 +7,8 @@ import com.mygdx.game.objects.characters.Player;
  * Created by paul on 03/10/15.
  */
 public class Plutonium extends Pickup {
-    public Plutonium(Sprite sprite) {
-        super(sprite);
+    public Plutonium(Sprite sprite, float width, float height) {
+        super(sprite, width, height);
     }
 
     @Override

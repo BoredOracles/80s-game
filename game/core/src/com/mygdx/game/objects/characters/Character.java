@@ -10,16 +10,12 @@ import com.mygdx.game.util.SpriteSheet;
  */
 public abstract class Character extends Collidable {
     private int health;
-    public float width;
-    public float height;
     public SpriteSheet spriteSheet;
     public int dx;
 
     public Character(SpriteSheet spriteSheet, float width, float height) {
-        super(spriteSheet);
+        super(spriteSheet, width, height);
         this.spriteSheet = spriteSheet;
-        this.width = width;
-        this.height = height;
         this.dx = 0;
     }
 
@@ -41,6 +37,6 @@ public abstract class Character extends Collidable {
 
     @Override
     public void draw(SpriteBatch batch){
-        batch.draw(spriteSheet.getCurrentFrame(), getX(), getY(), width, height);
+        batch.draw(spriteSheet.getCurrentFrame(), getX(), getY(), getWidth(), getHeight());
     }
 }

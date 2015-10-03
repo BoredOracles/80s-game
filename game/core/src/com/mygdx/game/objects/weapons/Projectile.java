@@ -7,11 +7,13 @@ import com.mygdx.game.objects.characters.Player;
 /**
  * Created by paul on 03/10/15.
  */
-public class Projectile extends Collidable{
-    int damage;
+public class Projectile extends Collidable {
+    private int damage;
+    private int vX;
 
-    public Projectile(Sprite sprite, int damage) {
-        super(sprite);
+
+    public Projectile(Sprite sprite, int damage, float width, float height) {
+        super(sprite, width, height);
         this.damage = damage;
     }
 

@@ -8,7 +8,7 @@ import com.mygdx.game.objects.Collidable;
  */
 public abstract class Pickup extends Collidable {
 
-    public Pickup(Sprite sprite) {
-        super(sprite);
+    public Pickup(Sprite sprite, float width, float height) {
+        super(sprite, width, height);
     }
 }

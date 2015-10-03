@@ -11,8 +11,8 @@ public abstract class MeleeWeapon extends Collidable {
     boolean isAttacking;
     int damage;
 
-    public MeleeWeapon(Sprite sprite, int damage) {
-        super(sprite);
+    public MeleeWeapon(Sprite sprite, int damage, float width, float height) {
+        super(sprite, width, height);
         this.damage = damage;
         isAttacking = false;
     }
