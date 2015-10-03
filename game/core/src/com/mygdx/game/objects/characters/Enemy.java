@@ -9,6 +9,7 @@ import com.mygdx.game.util.SpriteSheet;
  */
 public abstract class Enemy extends Character {
 	Sound grunt = Gdx.audio.newSound(Gdx.files.internal("sound/grunt.mp3"));
+    Sound winDeath = Gdx.audio.newSound(Gdx.files.internal("sound/RobotDeath.mp3"));
 	Sound playerDeath = Gdx.audio.newSound(Gdx.files.internal("sound/OrcDeath.mp3"));
     int collisionDamage;
 
@@ -24,5 +25,10 @@ public abstract class Enemy extends Character {
         	//TODO: game over screen
         }
     	grunt.play();
+    }
+
+    @Override
+    public void decHealth(int i){
+        winDeath.play();
     }
 }

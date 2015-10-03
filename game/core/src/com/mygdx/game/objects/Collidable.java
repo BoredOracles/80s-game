@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mygdx.game.objects.characters.Enemy;
 import com.mygdx.game.objects.characters.Player;
 
 /**
@@ -53,5 +54,9 @@ public abstract class Collidable extends Actor {
 
     public boolean collidingWith(Player player){
         return Intersector.overlaps(rect, player.getRect());
+    }
+
+    public boolean collidingWithRobot(Enemy robot){
+        return Intersector.overlaps(rect, robot.getRect());
     }
 }

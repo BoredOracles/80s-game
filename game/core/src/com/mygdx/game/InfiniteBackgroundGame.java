@@ -90,9 +90,13 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         projectiles = new ArrayList<Projectile>();
         enemies = new ArrayList<Enemy>();
 
-
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
+
+        Texture robotText = new Texture("EyeRobotSpritesheet.png");
+        SpriteSheet robotSheet = new SpriteSheet(robotText, 1, 2, 0.3f);
+        enemies.add(new LaserRobot(robotSheet, 1, playerSize, playerSize));
+        enemies.get(0).moveTo(350, 900);
 
         Texture playerSheet = new Texture("OrcSpritesheet.png");
         SpriteSheet sheet = new SpriteSheet(playerSheet, 1, 2, 0.3f);
@@ -100,6 +104,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         stage.addActor(player);
         stage.setKeyboardFocus(player);
         player.moveTo(350, 50);
+
+        projectiles.add(player.fireArrow());
+        projectiles.get(0).moveTo(player.getX(), player.getY());
 
         player.addListener(new InputListener() {
             @Override
@@ -161,12 +168,15 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         if (player.getX() <= 0 || player.getX() >= screenWidth-playerSize){
         	player.move(-player.dx, 0);
         }
-        
+
+        for(enemy:)
+
         player.draw(batch);
         
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
 
         ArrayList<Integer> toDestroy = new ArrayList<Integer>();
+        ArrayList<Integer> toDestroyRobot = new ArrayList<Integer>();
         for (Projectile proj : projectiles){
             proj.draw(batch);
 
@@ -174,11 +184,23 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                 proj.onCollide(player);
             }
 
+            for(Enemy robot: enemies){
+                if(proj.collidingWithRobot(robot)){
+                    robot.decHealth(1);
+                    toDestroyRobot.add(enemies.indexOf(robot));
+                }
+            }
+
         	if (proj.getY() < -100) toDestroy.add(projectiles.indexOf(proj));
 
         }
+
         for (Integer i : toDestroy){
         	projectiles.remove(i.intValue());
+        }
+
+        for (Integer i : toDestroyRobot){
+            projectiles.remove(i.intValue());
         }
         
         

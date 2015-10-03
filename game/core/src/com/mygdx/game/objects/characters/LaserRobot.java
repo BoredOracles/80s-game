@@ -20,9 +20,7 @@ public class LaserRobot extends Enemy {
     }
 
     public Projectile fireLaser(){
-        Texture playerSheet = new Texture("Laser.png");
-        Sprite sheet = new Sprite(playerSheet);
-        return new Projectile(sheet, 1, -1000, 32, 32);
+        return new Projectile(laserSprite, 1, -1000, 32, 32);
     }
 
 }

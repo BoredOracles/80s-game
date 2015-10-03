@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
+import com.mygdx.game.objects.characters.Enemy;
 import com.mygdx.game.objects.characters.Player;
 
 /**
@@ -26,6 +27,10 @@ public class Projectile extends Collidable {
     @Override
     public void onCollide(Player player) {
         player.decHealth(damage);
+    }
+
+    public void onCollideRobot(Enemy robot) {
+        robot.decHealth(damage);
     }
 
     @Override
