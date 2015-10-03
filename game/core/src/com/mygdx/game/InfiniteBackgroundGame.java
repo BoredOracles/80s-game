@@ -223,6 +223,15 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                     projectiles.add(laserFire);
                 }
             }
+            if(player.getX() < enemy.getX()){
+            	enemy.setX(enemy.getX() - Gdx.graphics.getDeltaTime() * 20);
+            }
+            else if(player.getX() > enemy.getX()){
+                enemy.setX((enemy).getX() + Gdx.graphics.getDeltaTime() * 20);
+            }
+            if(enemy instanceof SwordRobot){
+            	enemy.setY(enemy.getY() + Gdx.graphics.getDeltaTime() * -30);
+            }
         }
         
         
