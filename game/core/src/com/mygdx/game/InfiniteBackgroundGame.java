@@ -42,8 +42,6 @@ public class InfiniteBackgroundGame implements ApplicationListener {
 
     @Override
     public void create() {
-    	
-        
         screenWidth = 1200;
         screenHeight = 1000;
         playerSize = 100; 
@@ -58,7 +56,6 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         secondBgY = 0;
         deltaBg = 15;
         lastTimeBg = TimeUtils.nanoTime();
-        
 
         backImage = new Texture("background.jpg");
 
@@ -74,15 +71,13 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         stage.addActor(player);
         stage.setKeyboardFocus(player);
         player.moveTo(350, 50);
-        player.addListener(new InputListener(){
+
+        player.addListener(new InputListener() {
             @Override
             public boolean keyUp(InputEvent event, int keyCode) {
-                float movement = 20000 * Gdx.graphics.getDeltaTime();
-
-                if( (keyCode == Input.Keys.RIGHT || keyCode == Input.Keys.D) && player.dx > 0){
+                if ((keyCode == Input.Keys.RIGHT || keyCode == Input.Keys.D) && player.dx > 0) {
                     player.dx = 0;
-                }
-                else if((keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A) && player.dx < 0){
+                } else if ((keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A) && player.dx < 0) {
                     player.dx = 0;
                 }
                 return true;
@@ -92,8 +87,6 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         player.addListener(new InputListener(){
             @Override
             public boolean keyDown(InputEvent event, int keyCode) {
-                float movement = 20000 * Gdx.graphics.getDeltaTime();
-
                 if(keyCode == Input.Keys.RIGHT || keyCode == Input.Keys.D){
                     player.dx = player.speed;
                 }
@@ -136,7 +129,6 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         	player.move(-player.dx, 0);
         }
         
-        
         player.draw(batch);
         batch.end();
 
@@ -168,5 +160,4 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     public static float getStateTime(){
         return stateTime;
     }
-    
 }

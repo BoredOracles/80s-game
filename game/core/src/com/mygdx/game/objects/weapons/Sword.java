@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
  * Created by paul on 03/10/15.
  */
 public class Sword extends MeleeWeapon {
-    public Sword(Sprite sprite, int damage) {
-        super(sprite, damage);
+    public Sword(Sprite sprite, int damage, float width, float height) {
+        super(sprite, damage, width, height);
     }
 }

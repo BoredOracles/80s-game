@@ -12,8 +12,10 @@ import com.mygdx.game.objects.characters.Player;
 public abstract class Collidable extends Actor {
     Sprite sprite;
 
-    public Collidable(Sprite sprite){
+    public Collidable(Sprite sprite, float width, float height){
         this.sprite = sprite;
+        setWidth(width);
+        setHeight(height);
     }
 
     public Sprite getSprite(){
