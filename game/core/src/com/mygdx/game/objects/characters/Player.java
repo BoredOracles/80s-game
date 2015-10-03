@@ -12,15 +12,19 @@ public class Player extends com.mygdx.game.objects.characters.Character {
 
     private int score;
     public int speed;
-    private Texture healthBar;
-    //private Texture[] healthBars;
+    private Texture[] healthBars;
     
 
     public Player(SpriteSheet spriteSheet, float width, float height) {
         super(spriteSheet, width, height);
+        this.setHealth(3);
         this.score = 0;
         this.speed = 200;
-        healthBar = new Texture("HealthBar3.png");
+        this.healthBars = new Texture[4];
+        this.healthBars[0] = new Texture("HealthBar0.png");
+        this.healthBars[1] = new Texture("HealthBar1.png");
+        this.healthBars[2] = new Texture("HealthBar2.png");
+        this.healthBars[3] = new Texture("HealthBar3.png");
     }
 
     @Override
@@ -38,7 +42,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     }
     
     public Texture getHealthbar(){
-    	return this.healthBar;
+    	return healthBars[this.getHealth()]; //breaks if given <0 or >3
     }
 
 }

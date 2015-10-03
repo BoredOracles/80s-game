@@ -18,7 +18,11 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.mygdx.game.objects.characters.Enemy;
+import com.mygdx.game.objects.characters.LaserRobot;
 import com.mygdx.game.objects.characters.Player;
+import com.mygdx.game.objects.characters.SwordRobot;
+import com.mygdx.game.objects.pickups.Plutonium;
 import com.mygdx.game.objects.weapons.Projectile;
 import com.mygdx.game.util.SpriteSheet;
 
@@ -47,6 +51,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private int carSize;
 
     private Projectile car;
+    private Plutonium plutonium;
+    private SwordRobot swordRobot;
+    private LaserRobot laserRobot;
     
     @Override
     public void create() {
@@ -187,5 +194,26 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     	Sprite carSprite = new Sprite(carTexture);
     	Projectile car = new Projectile(carSprite, 3, -1000, carSize, carSize);
     	return car;
+    }
+    
+    private Plutonium spawnPlutonium(){
+    	Texture plutoniumTexture = new Texture("Plutonium.png");
+    	Sprite plutoniumSprite = new Sprite(plutoniumTexture);
+    	Plutonium plutonium = new Plutonium(plutoniumSprite, playerSize, playerSize);
+    	return plutonium;
+    }
+    
+    private SwordRobot spawnSwordRobot(){
+    	Texture sRobotSheet = new Texture("SwordRobotSpritesheet.png");
+    	SpriteSheet sRobotSprite = new SpriteSheet(sRobotSheet, 1, 2, 0.3f);
+    	SwordRobot swordRobot = new SwordRobot(sRobotSprite, playerSize, playerSize);
+    	return swordRobot;
+    }
+    
+    private LaserRobot spawnLaserRobot(){
+    	Texture lRobotSheet = new Texture("EyeRobotSpritesheet.png");
+    	SpriteSheet lRobotSprite = new SpriteSheet(lRobotSheet, 1, 2, 0.3f);
+    	LaserRobot laserRobot = new LaserRobot(lRobotSprite, playerSize, playerSize);
+    	return laserRobot;
     }
 }
