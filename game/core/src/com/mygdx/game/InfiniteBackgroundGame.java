@@ -52,6 +52,7 @@ public class InfiniteBackgroundGame implements ApplicationListener {
     private BitmapFont font;
     private int carSize;
 
+    private long sinceLastArrow = TimeUtils.millis();
     private Projectile car;
     private Plutonium plutonium;
     private SwordRobot swordRobot;
@@ -125,7 +126,8 @@ public class InfiniteBackgroundGame implements ApplicationListener {
                 else if(keyCode == Input.Keys.LEFT || keyCode == Input.Keys.A){
                     player.dx = -player.speed;
                 }
-                else if(keyCode == Input.Keys.SPACE){
+                else if((keyCode == Input.Keys.SPACE) && (TimeUtils.millis() - sinceLastArrow > 500)){
+                    sinceLastArrow = TimeUtils.millis();
                     Projectile arrow;
                     arrow = player.fireArrow();
                     arrow.moveTo(player.getX()+ 32, player.getY() + 128);
