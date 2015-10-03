@@ -5,6 +5,7 @@ package com.mygdx.game;
  */
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -43,6 +44,9 @@ public class InfiniteBackgroundGame implements ApplicationListener {
         Sprite playerSprite = new Sprite(playerTexture);
         player = new Player(playerSprite, 100, 100);
         player.moveTo(200, 200);
+        Music music = Gdx.audio.newMusic(Gdx.files.internal("sound/Annulus.mp3"));
+        music.setLooping(true);
+        music.play();
 
     }
 
