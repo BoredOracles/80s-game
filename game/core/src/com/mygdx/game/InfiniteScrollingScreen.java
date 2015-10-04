@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -85,6 +86,8 @@ public class InfiniteScrollingScreen implements Screen {
     private ArrayList<Enemy> alreadyCollided;
     
     private ArrayList<Pickup> pickUps;
+    
+    private static Sound carHorn = Gdx.audio.newSound(Gdx.files.internal("sound/car horn.mp3"));
     
     @Override
     public void show() {
@@ -196,8 +199,6 @@ public class InfiniteScrollingScreen implements Screen {
             player.move(-player.dx, 0);
         }
 
-        
-
 
 
         ArrayList<Integer> toSpawn = new ArrayList<Integer>();
@@ -209,6 +210,7 @@ public class InfiniteScrollingScreen implements Screen {
         for (Integer index : toSpawn){
             if (newEnemies.get(index) instanceof Projectile){
                 projectiles.add((Projectile)newEnemies.get(index));
+                carHorn.play();
             } else { enemies.add((Enemy)newEnemies.get(index)); }
             newEnemies.get(index).moveTo(spawnX.get(index),screenHeight);
         }

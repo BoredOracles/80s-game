@@ -21,7 +21,8 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     private Texture[] healthBars;
     Sound arrowSound = Gdx.audio.newSound(Gdx.files.internal("sound/Arrow.mp3"));
     private static Sound regainHP = Gdx.audio.newSound(Gdx.files.internal("sound/RegainHP.mp3"));
-    
+    private static Sound natas = Gdx.audio.newSound(Gdx.files.internal("sound/Natas Esiarp.mp3"));
+    private int praised;
 
     public Player(SpriteSheet spriteSheet, int health, float width, float height, InfiniteScrollingScreen screen) {
         super(spriteSheet, health, width, height);
@@ -33,6 +34,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
         this.healthBars[1] = new Texture("HealthBar1.png");
         this.healthBars[2] = new Texture("HealthBar2.png");
         this.healthBars[3] = new Texture("HealthBar3.png");
+        praised = 1000;
     }
 
     @Override
@@ -43,6 +45,9 @@ public class Player extends com.mygdx.game.objects.characters.Character {
 
     public void incScore(int deltaScore){
         this.score += deltaScore;
+        if (score > praised) {
+        natas.play();
+        praised *= 2;}
     }
     
     @Override
