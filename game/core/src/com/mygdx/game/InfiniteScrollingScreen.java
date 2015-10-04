@@ -237,7 +237,7 @@ public class InfiniteScrollingScreen implements Screen {
                     if (proj.getHeight() != carSize) {
                     toDestroy.add(projectiles.indexOf(proj)); } //actually terrible hack
                     player.incScore(3);
-                    if (random.nextInt(10a)==0){//chance of regaining HP 
+                    if (random.nextInt(10)==0){//chance of regaining HP
                     	player.incHealth(1); 
                     	//TODO play sound}
                     }
