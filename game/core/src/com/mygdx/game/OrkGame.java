@@ -6,7 +6,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.io.*;
+
 public class OrkGame extends Game {
+    private boolean highScoreLoaded = false;
+    private int highScore = 0;
+
     public MenuScreen menuScreen;
     public MenuScreen endScreen;
     public InfiniteScrollingScreen infiniteScrollingScreen;
@@ -17,6 +22,61 @@ public class OrkGame extends Game {
         endScreen = new MenuScreen(this, new Texture("Game Over.jpg"));
         infiniteScrollingScreen = new InfiniteScrollingScreen(this);
         setScreen(menuScreen);
+    }
+
+    public boolean saveScore(int score){
+        if(score <= highScore) {
+            return false;
+        }
+
+        highScore = score;
+
+        try {
+            String fileName = "highScore.ser";
+
+            File saveFile = new File(fileName);
+            if (saveFile.exists()){
+                saveFile.delete();
+            }
+
+            FileOutputStream fileOut = new FileOutputStream(fileName);
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(score);
+            out.close();
+            fileOut.close();
+        }
+        catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        return true;
+
+    }
+
+    public int getHighScore(){
+        if(highScoreLoaded){
+            return highScore;
+        }
+
+        try {
+            FileInputStream fileIn = new FileInputStream("highScore.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            highScore = (int) in.readObject();
+            in.close();
+            fileIn.close();
+        }
+        catch(IOException i) {
+            i.printStackTrace();
+        }
+        catch(ClassNotFoundException c) {
+            System.out.println("Score not found");
+            c.printStackTrace();
+        }
+
+        highScoreLoaded = true;
+
+        return highScore;
+
     }
 
 }

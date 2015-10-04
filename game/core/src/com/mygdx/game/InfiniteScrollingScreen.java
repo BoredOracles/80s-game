@@ -283,7 +283,7 @@ public class InfiniteScrollingScreen implements Screen {
         Collections.sort(toDestroyRobot);
         for (int i : toDestroyRobot){
         	if (alreadyCollided.contains(enemies.get(i-count))) {
-        		alreadyCollided.remove(enemies.get(i-count));
+        		alreadyCollided.remove(enemies.get(i - count));
         	}
             enemies.remove(i -count);
             count++;
@@ -393,7 +393,7 @@ public class InfiniteScrollingScreen implements Screen {
         
         
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
-        batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight- 80, 272, 80);
+        batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight - 80, 272, 80);
         batch.end();
 
 
@@ -461,7 +461,8 @@ public class InfiniteScrollingScreen implements Screen {
     }
 
     public void onPlayerDeath(){
+        game.saveScore(player.getScore());
         game.setScreen(game.endScreen);
-        
+        System.out.println(game.getHighScore());
     }
 }
