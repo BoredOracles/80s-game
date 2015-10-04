@@ -344,7 +344,7 @@ public class InfiniteScrollingScreen implements Screen {
             player.incScore(5);
             
             //enemy generation for next tesselation
-            
+
             newEnemies = new ArrayList<Collidable>();
             int total = 0;
             while (total < player.getScore()){
