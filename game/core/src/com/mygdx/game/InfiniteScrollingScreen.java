@@ -282,8 +282,8 @@ public class InfiniteScrollingScreen implements Screen {
         count = 0;
         Collections.sort(toDestroyRobot);
         for (int i : toDestroyRobot){
-        	if (alreadyCollided.contains(enemies.get(i))) {
-        		alreadyCollided.remove(enemies.get(i));
+        	if (alreadyCollided.contains(enemies.get(i-count))) {
+        		alreadyCollided.remove(enemies.get(i-count));
         	}
             enemies.remove(i -count);
             count++;
