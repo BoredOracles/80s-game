@@ -6,7 +6,6 @@ pause end screen for a few seconds so players dont accidentally exit immediately
 sfx volumes
 lazers come from closer to robot
 arrows come from closer to player
-sync plutonium crates w/ bg movement
 cars stay in lanes
 add sfx for regaining hp
 sound effect car entry
