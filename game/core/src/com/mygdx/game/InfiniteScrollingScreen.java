@@ -283,7 +283,6 @@ public class InfiniteScrollingScreen implements Screen {
         		pickedUp.add(pickUps.indexOf(pluto));
         		player.incScore(5);
         	}
-        	pluto.move(0, -275); //TODO make it sync with background
         }
 
         count = 0;
@@ -342,6 +341,11 @@ public class InfiniteScrollingScreen implements Screen {
             currentBgY -= deltaBg;
             secondBgY -= deltaBg;
             lastTimeBg = TimeUtils.nanoTime();
+
+            for(Pickup pickup: pickUps){
+                pickup.moveTo(0, pickup.getY()-deltaBg);
+            }
+
         }
 
         if(currentBgY <= 0){
