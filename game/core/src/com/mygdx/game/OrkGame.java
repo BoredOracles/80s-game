@@ -61,7 +61,7 @@ public class OrkGame extends Game {
         try {
             FileInputStream fileIn = new FileInputStream("highScore.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            highScore = (int) in.readObject();
+            highScore = (Integer) in.readObject();
             in.close();
             fileIn.close();
         }
