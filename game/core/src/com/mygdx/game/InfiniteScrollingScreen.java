@@ -237,7 +237,7 @@ public class InfiniteScrollingScreen implements Screen {
                     if (proj.getHeight() != carSize) {
                     toDestroy.add(projectiles.indexOf(proj)); } //actually terrible hack
                     player.incScore(3);
-                    if (random.nextInt(4)==0){//chance of regaining HP 
+                    if (random.nextInt(10a)==0){//chance of regaining HP 
                     	player.incHealth(1); 
                     	//TODO play sound}
                     }
@@ -367,7 +367,7 @@ public class InfiniteScrollingScreen implements Screen {
             for (Object o : newEnemies){
                 spawnTimes.add(random.nextDouble()*4000);
                 if (o instanceof Projectile){
-                    spawnX.add(random.nextInt(5)*(screenWidth/4));
+                    spawnX.add(random.nextInt(screenWidth-carSize));
                 } else {spawnX.add(random.nextInt(screenWidth-playerSize));}
 
                 newEnemyTimer = System.currentTimeMillis(); 
@@ -462,6 +462,5 @@ public class InfiniteScrollingScreen implements Screen {
         game.setCurrentScore(player.getScore());
         game.saveScore(player.getScore());
         game.setScreen(game.endScreen);
-        System.out.println(game.getHighScore());
     }
 }
