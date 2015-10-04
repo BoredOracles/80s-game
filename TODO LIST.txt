@@ -4,8 +4,6 @@ hidden high scores file
 display high score on end screen
 pause end screen for a few seconds so players dont accidentally exit immediately upon entry
 sfx volumes
-lazers come from closer to robot
-arrows come from closer to player
 cars stay in lanes
 add sfx for regaining hp
 sound effect car entry

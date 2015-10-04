@@ -116,7 +116,7 @@ public class InfiniteScrollingScreen implements Screen {
 
         currentBgY = screenHeight;
         secondBgY = 0;
-        deltaBg = 15;
+        deltaBg = 5;
         lastTimeBg = TimeUtils.nanoTime();
 
         backImage = new Texture("background.jpg");
@@ -167,7 +167,7 @@ public class InfiniteScrollingScreen implements Screen {
                     sinceLastArrow = TimeUtils.millis();
                     Projectile arrow;
                     arrow = player.fireArrow();
-                    arrow.moveTo(player.getX()+ 32, player.getY() + 128);
+                    arrow.moveTo(player.getX()+ 32, player.getY() + 100);
                     projectiles.add(arrow);
 
                 }
@@ -189,26 +189,14 @@ public class InfiniteScrollingScreen implements Screen {
 
         stateTime += Gdx.graphics.getDeltaTime();
 
-        batch.setProjectionMatrix(camera.combined);
-        batch.begin();
-        batch.draw(background, 0, currentBgY - screenHeight, screenWidth, screenHeight);
-        batch.draw(background, 0, currentBgY, screenWidth, screenHeight);
-        batch.draw(backImage, 0, secondBgY - screenHeight, screenWidth, screenHeight);
-        batch.draw(backImage, 0, secondBgY, screenWidth, screenHeight);
+
 
         player.move(player.dx, 0);
         if (player.getX() <= 0 || player.getX() >= screenWidth-playerSize){
             player.move(-player.dx, 0);
         }
 
-        for(Enemy enemy: enemies){
-            enemy.draw(batch);
-        }
-        for(Pickup pickup:pickUps){
-        	pickup.draw(batch);
-        }
-
-        player.draw(batch);
+        
 
 
 
@@ -237,7 +225,6 @@ public class InfiniteScrollingScreen implements Screen {
         ArrayList<Integer> toDestroyRobot = new ArrayList<Integer>();
         ArrayList<Integer> pickedUp = new ArrayList<Integer>();
         for (Projectile proj : projectiles){
-            proj.draw(batch);
 
             if(proj.collidingWith(player)) {
                 proj.onCollide(player);
@@ -314,7 +301,7 @@ public class InfiniteScrollingScreen implements Screen {
             if(enemy instanceof LaserRobot){
                 if(TimeUtils.millis() - ((LaserRobot) enemy).getSinceLastLaser() > 1000) {
                     Projectile laserFire = ((LaserRobot) enemy).fireLaser();
-                    laserFire.moveTo(enemy.getX() + 32, enemy.getY() - 128);
+                    laserFire.moveTo(enemy.getX() + 32, enemy.getY() - 1 - playerSize);
                     projectiles.add(laserFire);
                 }
             }
@@ -332,22 +319,25 @@ public class InfiniteScrollingScreen implements Screen {
             }
         }
         
+        currentBgY -= deltaBg;
+        secondBgY -= deltaBg;
+        for(Pickup pickup: pickUps){
+            pickup.moveTo(pickup.getX(), pickup.getY()-deltaBg);
+        }
         
-        font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
-        batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight- 80, 272, 80);
-        batch.end();
-
+        /*
         if(TimeUtils.nanoTime() - lastTimeBg > 50000000){
             currentBgY -= deltaBg;
             secondBgY -= deltaBg;
             lastTimeBg = TimeUtils.nanoTime();
-
+            	
             for(Pickup pickup: pickUps){
-                pickup.moveTo(0, pickup.getY()-deltaBg);
+                pickup.moveTo(pickup.getX(), pickup.getY()-deltaBg);
             }
 
         }
-
+		*/
+        
         if(currentBgY <= 0){
             currentBgY = screenHeight;
             secondBgY = 0;
@@ -379,8 +369,35 @@ public class InfiniteScrollingScreen implements Screen {
                     spawnX.add(random.nextInt(5)*(screenWidth/4));
                 } else {spawnX.add(random.nextInt(screenWidth-playerSize));}
 
-                newEnemyTimer = System.currentTimeMillis(); }
+                newEnemyTimer = System.currentTimeMillis(); 
+            }
         }
+        
+        batch.setProjectionMatrix(camera.combined);
+        batch.begin();
+        batch.draw(background, 0, currentBgY - screenHeight, screenWidth, screenHeight);
+        batch.draw(background, 0, currentBgY, screenWidth, screenHeight);
+        batch.draw(backImage, 0, secondBgY - screenHeight, screenWidth, screenHeight);
+        batch.draw(backImage, 0, secondBgY, screenWidth, screenHeight);
+        for(Enemy enemy: enemies){
+            enemy.draw(batch);
+        }
+        for(Pickup pickup:pickUps){
+        	pickup.draw(batch);
+        }
+
+        player.draw(batch);
+        for (Projectile proj : projectiles){
+            proj.draw(batch);
+        }
+        
+        
+        font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
+        batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight- 80, 272, 80);
+        batch.end();
+
+
+
 
     }
 
