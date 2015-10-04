@@ -1,5 +1,7 @@
 package com.mygdx.game.objects.characters;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
 import com.mygdx.game.util.SpriteSheet;

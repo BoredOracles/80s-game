@@ -20,6 +20,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     public int speed;
     private Texture[] healthBars;
     Sound arrowSound = Gdx.audio.newSound(Gdx.files.internal("sound/Arrow.mp3"));
+    private static Sound regainHP = Gdx.audio.newSound(Gdx.files.internal("sound/RegainHP.mp3"));
     
 
     public Player(SpriteSheet spriteSheet, int health, float width, float height, InfiniteScrollingScreen screen) {
@@ -42,6 +43,12 @@ public class Player extends com.mygdx.game.objects.characters.Character {
 
     public void incScore(int deltaScore){
         this.score += deltaScore;
+    }
+    
+    @Override
+    public void incHealth(int healthDelta){
+    	super.incHealth(healthDelta);
+    	if (healthDelta>0) {regainHP.play();}
     }
     
     public int getScore(){
