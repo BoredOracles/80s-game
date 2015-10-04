@@ -273,6 +273,7 @@ public class InfiniteScrollingScreen implements Screen {
         count = 0;
         Collections.sort(toDestroy);
         for (int i : toDestroy){
+            if((i - count) < 0) continue;
             projectiles.remove(i -count);
             count++;
         }
@@ -280,6 +281,7 @@ public class InfiniteScrollingScreen implements Screen {
         count = 0;
         Collections.sort(toDestroyRobot);
         for (int i : toDestroyRobot){
+            if((i - count) < 0) continue;
         	if (alreadyCollided.contains(enemies.get(i-count))) {
         		alreadyCollided.remove(enemies.get(i - count));
         	}
@@ -290,7 +292,8 @@ public class InfiniteScrollingScreen implements Screen {
         count = 0;
         Collections.sort(pickedUp);
         for (int i : pickedUp){
-        	pickUps.remove(i-count);
+            if((i - count) < 0) continue;
+            pickUps.remove(i-count);
         	count++;
         }
         
