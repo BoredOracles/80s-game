@@ -463,6 +463,7 @@ public class InfiniteScrollingScreen implements Screen {
     }
 
     public void onPlayerDeath(){
+        game.getHighScore();
         game.saveScore(player.getScore());
         game.setScreen(game.endScreen);
         System.out.println(game.getHighScore());
