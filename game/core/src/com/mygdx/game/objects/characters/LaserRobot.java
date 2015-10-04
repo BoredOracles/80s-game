@@ -33,7 +33,7 @@ public class LaserRobot extends Enemy {
     }
 
     public Projectile fireLaser(){
-        lazerShot.play();
+        lazerShot.play(1.5f);
         sinceLastLaser = TimeUtils.millis();
         return new Projectile(laserSprite, 1, -1000, 32, 32);
     }

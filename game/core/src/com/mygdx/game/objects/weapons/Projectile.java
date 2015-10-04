@@ -33,10 +33,10 @@ public class Projectile extends Collidable {
     public void onCollide(Player player) {
         player.decHealth(damage);
         if (player.getHealth() <= 0){
-        	playerDeath.play();
+        	playerDeath.play(1.5f);
         	//TODO: game over screen
         } else {
-    	grunt.play(); }
+    	grunt.play(1.5f); }
     }
 
     public void onCollideRobot(Enemy robot) {

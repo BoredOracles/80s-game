@@ -46,14 +46,14 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     public void incScore(int deltaScore){
         this.score += deltaScore;
         if (score > praised) {
-        natas.play();
+        natas.play(1.0f);
         praised *= 2;}
     }
     
     @Override
     public void incHealth(int healthDelta){
     	super.incHealth(healthDelta);
-    	if (healthDelta>0) {regainHP.play();}
+    	if (healthDelta>0) {regainHP.play(1.5f);}
     }
     
     public int getScore(){
@@ -74,7 +74,7 @@ public class Player extends com.mygdx.game.objects.characters.Character {
     }
 
     public Projectile fireArrow(){
-        arrowSound.play();
+        arrowSound.play(1.0f);
         Texture playerSheet = new Texture("Arrow.png");
         Sprite sheet = new Sprite(playerSheet);
         return new Projectile(sheet, 1, 1000, 32, 96);

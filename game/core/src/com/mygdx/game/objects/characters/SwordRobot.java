@@ -26,7 +26,7 @@ public class SwordRobot extends Enemy {
     @Override
     public void onCollide(Player player){
     	int index = random.nextInt(3);
-    	sounds[index].play();
+    	sounds[index].play(1.0f);
     	
     	super.onCollide(player);
     }
