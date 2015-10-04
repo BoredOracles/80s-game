@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -80,5 +81,9 @@ public class MenuScreen implements Screen {
     public void dispose() {
         batch.dispose();
         background.dispose();
+    }
+
+    public OrkGame getGame(){
+        return game;
     }
 }

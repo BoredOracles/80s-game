@@ -12,6 +12,8 @@ public class OrkGame extends Game {
     private boolean highScoreLoaded = false;
     private int highScore = 0;
 
+    private int currentScore;
+
     public MenuScreen menuScreen;
     public MenuScreen endScreen;
     public InfiniteScrollingScreen infiniteScrollingScreen;
@@ -19,9 +21,17 @@ public class OrkGame extends Game {
     @Override
     public void create() {
         menuScreen = new MenuScreen(this, new Texture("start screen.jpg"));
-        endScreen = new MenuScreen(this, new Texture("Game Over.jpg"));
+        endScreen = new EndMenuScreen(this, new Texture("Game Over.jpg"));
         infiniteScrollingScreen = new InfiniteScrollingScreen(this);
         setScreen(menuScreen);
+    }
+
+    public void setCurrentScore(int score){
+        currentScore = score;
+    }
+
+    public int getCurrentScore(){
+        return currentScore;
     }
 
     public boolean saveScore(int score){

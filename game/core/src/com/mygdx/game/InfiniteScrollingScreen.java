@@ -192,15 +192,11 @@ public class InfiniteScrollingScreen implements Screen {
 
         stateTime += Gdx.graphics.getDeltaTime();
 
-
-
         player.move(player.dx, 0);
         if (player.getX() <= 0 || player.getX() >= screenWidth-playerSize){
             player.move(-player.dx, 0);
         }
-
-
-
+        
         ArrayList<Integer> toSpawn = new ArrayList<Integer>();
         for (Object o : newEnemies){
             if ( System.currentTimeMillis() - newEnemyTimer > spawnTimes.get(newEnemies.indexOf(o)) ){
@@ -397,10 +393,6 @@ public class InfiniteScrollingScreen implements Screen {
         font.draw(batch, Integer.toString(player.getScore()), 16, screenHeight - 16);
         batch.draw(player.getHealthbar(), screenWidth - 272, screenHeight - 80, 272, 80);
         batch.end();
-
-
-
-
     }
 
     @Override
@@ -464,6 +456,7 @@ public class InfiniteScrollingScreen implements Screen {
 
     public void onPlayerDeath(){
         game.getHighScore();
+        game.setCurrentScore(player.getScore());
         game.saveScore(player.getScore());
         game.setScreen(game.endScreen);
         System.out.println(game.getHighScore());
