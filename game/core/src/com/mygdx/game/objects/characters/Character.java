@@ -1,7 +1,5 @@
 package com.mygdx.game.objects.characters;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.objects.Collidable;
 import com.mygdx.game.util.SpriteSheet;
@@ -35,7 +33,9 @@ public abstract class Character extends Collidable {
 
     public void incHealth(int healthDelta){
         health += healthDelta;
-        if (health > 3) {health = 3;}
+        if (health > 3) {
+            health = 3;
+        }
         checkDead();
     }
 
@@ -53,6 +53,4 @@ public abstract class Character extends Collidable {
         super.updateRect();
         batch.draw(spriteSheet.getCurrentFrame(), getX(), getY(), getWidth(), getHeight());
     }
-
-
 }
